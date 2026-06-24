@@ -1,4 +1,4 @@
-# Lovi
+# Loviroots (short: Lovi)
 # Natural skincare brand website (loviroots.com) — WhatsApp-first product sales, email capture, blog
 
 ## 0. WHAT THIS PROJECT IS
@@ -25,7 +25,9 @@ Cloudflare Full Strict + certbot        — CDN + SSL
 loviroots.com                           — domain (registered)
 
 ## 3. KEY CONVENTIONS
-- Brand name is LOVI (never "Lovy" — old working doc used the wrong spelling)
+- Registered brand: LOVIROOTS. Short name customers use: LOVI. Never "Lovy".
+- Use Loviroots in: About page, company bio, legal copy, formal contexts.
+- Use Lovi in: product names, casual copy, social, conversational CTAs.
 - WhatsApp CTA is always the primary button; "checkout online" sits below it as secondary
 - No customer DB in v1 — WordPress/MySQL is CMS only; orders managed via WhatsApp + admin panel
 - Admin route (/admin) is the only protected route in v1

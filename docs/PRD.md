@@ -1,4 +1,4 @@
-# Lovi — Product Requirements Document
+# Loviroots — Product Requirements Document
 
 **Version:** 1.0  
 **Date:** 2026-06-24  
@@ -9,7 +9,7 @@
 
 ## 1. Overview
 
-**Lovi** is a natural skincare brand rooted in African heritage. Its flagship product, **Lovi Shea Butter**, is a 100% natural moisturiser formulated with shea butter, aloe vera, and coconut oil. The Lovi website (loviroots.com) serves as the brand's primary commercial and editorial presence: it sells products directly to consumers, tells the brand story, and publishes skincare education content.
+**Loviroots** (known to customers as **Lovi**) is a natural skincare brand rooted in African heritage. Its flagship product, **Lovi Shea Butter**, is a 100% natural moisturiser formulated with shea butter, aloe vera, and coconut oil. The Lovi website (loviroots.com) serves as the brand's primary commercial and editorial presence: it sells products directly to consumers, tells the brand story, and publishes skincare education content.
 
 ---
 
@@ -309,3 +309,4 @@ WhatsApp message received → Lovi team processes manually → Packs & ships
 | Version | Date | Change |
 |---------|------|--------|
 | 1.0 | 2026-06-24 | Initial PRD — brand renamed from Lovy to Lovi |
+| 1.1 | 2026-06-24 | Clarified: registered brand is Loviroots; Lovi is the customer-facing short name |

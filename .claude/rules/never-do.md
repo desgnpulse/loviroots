@@ -1,6 +1,7 @@
 # Lovi — Project-Specific Never-Do Rules
 
-❌ Never write "Lovy" — the brand name is Lovi
+❌ Never write "Lovy" — registered brand is Loviroots; Lovi is the accepted short name
+❌ Never use Lovi where the registered name is required (legal, invoices, company bio, About page formal copy) — use Loviroots
 ❌ Never hardcode the WhatsApp number — always use NEXT_PUBLIC_WHATSAPP_NUMBER from .env
 ❌ Never store orders in a client-side-only state that survives page reload — cart is ephemeral local state only
 ❌ Never skip output: 'standalone' in next.config.ts — Docker deploy requires it
