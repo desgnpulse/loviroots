@@ -25,5 +25,8 @@ next-env.d.ts
 # Vercel (not used but exclude if generated)
 .vercel/
 
+# Admin data (orders + reviews, persisted to disk on server)
+data/*.json
+
 # OS
 Thumbs.db

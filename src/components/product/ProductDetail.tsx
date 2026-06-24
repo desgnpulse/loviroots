@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { StarRating } from "./StarRating";
 import { ReviewCard } from "./ReviewCard";
+import { ReviewForm } from "./ReviewForm";
 import { WhatsAppCTA } from "@/components/ui/WhatsAppCTA";
 import { useWhatsAppOrder } from "@/hooks/useWhatsAppOrder";
 import type { Product } from "@/lib/products";
@@ -169,6 +170,16 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         </section>
       )}
+
+      {/* Leave a review */}
+      <section className="bg-ivory px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-2xl font-bold text-earth mb-6">Leave a review</h2>
+          <div className="max-w-md">
+            <ReviewForm productSlug={product.slug} productName={product.name} />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

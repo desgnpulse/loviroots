@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllProductSlugs, getProductBySlug } from "@/lib/wp/products";
+import { getApprovedReviews } from "@/lib/admin-store";
 import { ProductDetail } from "@/components/product/ProductDetail";
 
 export const revalidate = 60;
@@ -31,5 +32,21 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
-  return <ProductDetail product={product} />;
+
+  // Merge WP reviews with admin-approved submitted reviews
+  const approvedReviews = getApprovedReviews(slug).map((r) => ({
+    name: r.reviewerName,
+    rating: r.rating,
+    body: r.body,
+    date: new Date(r.createdAt).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    }),
+  }));
+  const productWithReviews = {
+    ...product,
+    reviews: [...product.reviews, ...approvedReviews],
+  };
+
+  return <ProductDetail product={productWithReviews} />;
 }

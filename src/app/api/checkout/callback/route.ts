@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getTransactionStatus } from "@/lib/pesapal";
 import { consumePendingOrder } from "@/lib/orders";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
+import { saveWebOrder } from "@/lib/admin-store";
 
 // Pesapal IPN — called by Pesapal server when payment status changes.
 // Must return HTTP 200 with the specific JSON body below; Pesapal retries on failure.
@@ -27,6 +28,7 @@ export async function GET(req: NextRequest) {
       // COMPLETED — look up the pending order and send emails
       const order = consumePendingOrder(merchantRef);
       if (order) {
+        saveWebOrder({ ...order, pesapalConfirmationCode: status.confirmationCode });
         await Promise.allSettled([
           sendOrderConfirmation(order),
           sendAdminOrderNotification(order, status.confirmationCode),
