@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CartBadge } from "./CartBadge";
 
 const nav = [
   { label: "Products", href: "/products" },
@@ -30,20 +31,15 @@ export function Header() {
           ))}
         </nav>
 
-        <Link
-          href="/products"
-          className="hidden md:inline-flex items-center gap-2 bg-leaf text-earth text-sm font-medium px-5 py-2 rounded-full hover:bg-[#7aad65] transition-colors"
-        >
-          Shop Now
-        </Link>
-
-        {/* Mobile: shop link only */}
-        <Link
-          href="/products"
-          className="md:hidden text-sm font-medium text-earth underline underline-offset-4"
-        >
-          Shop
-        </Link>
+        <div className="flex items-center gap-2">
+          <CartBadge />
+          <Link
+            href="/products"
+            className="hidden md:inline-flex items-center gap-2 bg-leaf text-earth text-sm font-medium px-5 py-2 rounded-full hover:bg-[#7aad65] transition-colors"
+          >
+            Shop Now
+          </Link>
+        </div>
       </div>
     </header>
   );

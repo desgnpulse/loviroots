@@ -1,6 +1,7 @@
 export type ProductSize = {
   label: string;
   price: string;
+  priceValue: number;
 };
 
 export type Review = {
@@ -34,9 +35,9 @@ export const PRODUCTS: Product[] = [
       "100% pure, unrefined shea butter sourced directly from West Africa. No additives, no preservatives. Just shea in its most effective form. Works on skin, hair, lips, and nails.",
     image: "/images/products/shea-butter.jpg",
     sizes: [
-      { label: "100g", price: "KES 350" },
-      { label: "200g", price: "KES 600" },
-      { label: "500g", price: "KES 1,200" },
+      { label: "100g", price: "KES 350", priceValue: 350 },
+      { label: "200g", price: "KES 600", priceValue: 600 },
+      { label: "500g", price: "KES 1,200", priceValue: 1200 },
     ],
     rating: 4.8,
     reviewCount: 42,
