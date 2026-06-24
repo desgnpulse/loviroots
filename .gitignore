@@ -1,0 +1,28 @@
+CLAUDE.local.md
+.env
+.env.*
+!.env.example
+*.credentials.json
+.DS_Store
+.idea/
+*.swp
+
+# Next.js
+.next/
+out/
+dist/
+node_modules/
+
+# pnpm
+.pnpm-store/
+
+# Build
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel (not used but exclude if generated)
+.vercel/
+
+# OS
+Thumbs.db

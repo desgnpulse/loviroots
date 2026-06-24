@@ -1,0 +1,203 @@
+LOVY BRAND MANUAL (PREVIEW DRAFT)
+
+BRAND NAMES + POSITIONING
+
+1. Nature and Heritage
+Positioning: Raw, earthy, tradition-meets-modern. Appeals to grounded users who value ancestral wellness.
+
+2. House of Lovy
+Positioning: Elegant, boutique, refined. For the conscious customer who wants the finer things without losing the natural touch.
+
+3. Lovy Botanica
+Positioning: Modern, fresh, botanical. Clean aesthetics for everyday self-care rituals.
+
+LOGO USAGE (Wordmark + Monogram)
+
+Placeholder visual zones for each variationColor versions, black, white, and single-color flat logo examples.
+
+COLOR PALETTE
+
+Olive Green – #8A9A5B
+
+Warm Sand – #E7D8C9
+
+Cocoa Brown – #5E4B3C
+
+Cream White – #F9F4EF
+
+Muted Terracotta – #C27664
+
+TYPOGRAPHY
+
+Headers / Logo:
+
+Playfair Display or Cormorant Garamond (serif, organic luxury)
+
+Body Text:
+
+Raleway or Nunito (clean, accessible, unisex)
+
+TAGLINE OPTIONS
+
+"Nature’s Touch for Every Body"
+
+"Rooted in Nature. Made for You."
+
+"Simple. Natural. Lovy."
+
+TONE OF VOICE
+
+Voice Personality:
+
+Nature-savvy but never preachy
+
+Confident without arrogance
+
+Poetic, but with punch
+
+Gently unisex
+
+Voice Examples:
+
+"We don’t chase trends. We bottle traditions."
+
+"This isn’t skincare. It’s skin respect."
+
+"Your skin has taste. Give it something it can feel."
+
+LABEL USAGE GUIDE
+
+Rectangular Label (260mm x 38mm)
+
+Front: Logo, product name, core benefits, net weight
+
+Back: Ingredients, usage instructions, website, social handles, barcode
+
+Suggested font sizes and layout grid in AI file
+
+Circular Label (1 inch diameter)
+
+Monogram or logo only
+
+Option to include muted texture or embossed-style botanical icon
+
+IMAGE DIRECTION
+
+Midjourney & Ideogram Prompt Themes:
+
+Earthy minimalism
+
+Natural lighting
+
+Plant textures (aloe, shea nut, coconut)
+
+Warm neutral tones
+
+Eco luxe materials (kraft, glass, matte containers)
+
+COPYWRITING HOT STARTERS (Preview)
+
+1. Hero Line:
+"Skincare that doesn’t need to explain itself. You feel it."
+
+2. About Brand Snippet:
+"Lovy was born where tradition meets simplicity. We believe the best skincare doesn’t try too hard. It’s honest. Like nature."
+
+3. Product Description Starter:
+"Lovy Shea Butter is whipped from tradition and crafted with care. With nothing but raw shea butter, aloe vera, and coconut oil, it soothes, softens, and protects every inch it touches."
+
+4. Instagram Caption:
+"Nourishment so natural, even your grandma would approve. #LovyLife #RootedInNature"
+
+5. Brand Motto:
+"What we leave out is just as powerful as what we put in."
+
+===============================
+Excellent. Let’s now craft web copy and product page copy that makes people want to lather up before they even click “Buy.” This will include:
+
+🔥 WEB COPY: HOMEPAGE (Draft)
+Hero Section (Top of Page)
+
+Headline:
+“Nature’s Touch for Every Body.”
+
+Subhead:
+From shea trees to skin, Lovy brings you timeless care—handcrafted, honest, and healing.
+
+CTA Buttons:
+[ Shop Now ] [ Learn the Ritual ]
+
+Section: Why Lovy?
+
+Raw. Real. Rare.
+No fluff. No fillers. Just a blend of ancestral wisdom and clean simplicity. We use ingredients your skin already knows and loves: shea butter, aloe vera, and coconut oil.
+
+[Icon Highlights]
+
+🌱 100% Natural Ingredients
+✋ Handcrafted in Small Batches
+🌍 Gender-neutral & Earth-friendly
+✅ No Parabens. No Bull.
+Section: Our First Love – Shea Butter
+
+Lovy Shea Butter
+“One jar. Head to toe. Infinite softness.”
+
+Whether you need moisture, glow, or gentle healing, this is your go-to. Perfect for:
+
+✅ Hair hydration
+✅ Face nourishment
+✅ Skin protection
+
+[Button] → [ View Product ]
+
+Section: The Lovy Promise
+
+“If nature didn’t make it, we didn’t use it.”
+Every ingredient earns its place. No hard-to-pronounce chemicals. No guessing games. Just skincare that makes sense—and makes you feel something.
+
+Testimonials (placeholder quotes)
+
+“It felt like my skin finally exhaled.”
+— Mwikali, Nairobi
+
+“Smells like nature. Feels like magic.”
+— Brian K., Kisumu
+
+Footer CTA
+
+Ready for skin that remembers what softness feels like?
+[ Shop Now ]
+
+PRODUCT PAGE COPY: LOVY SHEA BUTTER
+Product Name:
+
+Lovy Shea Butter – Head to Toe Balm
+
+Short Description:
+
+A whipped blend of raw shea butter, aloe vera, and coconut oil. Deeply moisturizing. Wildly versatile.
+
+Key Benefits (Icons or Bullets):
+Soothes dryness instantly
+Locks in moisture for hours
+Gentle enough for face, strong enough for heels
+Adds shine to hair without buildup
+Ingredient Highlights:
+Shea Butter – Rich in vitamins A & E, boosts collagen, deep hydrator
+Aloe Vera – Calms irritated skin, anti-inflammatory magic
+Coconut Oil – Antibacterial, lightweight and softening
+How to Use:
+
+Warm a small amount between your fingers. Massage into skin or hair. Use daily or whenever your body needs love.
+
+Taglines for Purchase Section:
+“Because your skin deserves better than ‘okay.’”
+“Small jar. Big relief.”
+“Tradition in a twist-off lid.”
+[ Add to Cart ] [ Read Reviews ] [ See Ingredients ]
+
+============================================
+
+
+
