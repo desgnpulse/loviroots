@@ -1,0 +1,186 @@
+{
+  "brand": {
+    "name": "Lovi",
+    "domain": "loviroots.com",
+    "tagline": "Nature's Touch, Lovingly Yours",
+    "whatsapp_number": "[FILL — format: 2547XXXXXXXX]",
+    "whatsapp_link": "https://wa.me/[FILL]",
+    "instagram": "@lovi.ke",
+    "tiktok": "@lovi.ke",
+    "email_list_platform": "Brevo"
+  },
+
+  "voice": {
+    "tone": "Warm, clear, witty. Never preachy. Never condescending. Never overly technical.",
+    "celebrate": "Natural beauty and African heritage — without being performative.",
+    "avoid": "Clinical language, ingredient jargon without explanation, western beauty standards as default.",
+    "style": [
+      "Short sentences. Under 20 words.",
+      "Write to one person, not an audience.",
+      "Open where it gets interesting — skip the context the reader already knows.",
+      "Make a point. Do not summarise.",
+      "Wit earns its place — do not force it."
+    ]
+  },
+
+  "banned": [
+    "dive in", "delve", "leverage", "seamless", "unlock", "robust",
+    "streamline", "harness", "cutting-edge", "transformative",
+    "game-changer", "revolutionary", "utilize", "facilitate", "initiate",
+    "innovative", "holistic", "empower", "journey", "ecosystem"
+  ],
+
+  "personas": {
+    "primary": {
+      "name": "Amina",
+      "age": "26",
+      "location": "Nairobi",
+      "occupation": "Marketing executive at a mid-size company",
+      "context": "Reads ingredient labels. Tired of products that promise and under-deliver. Discovered natural skincare after a reaction to a mainstream moisturiser. Buys on a Thursday evening from her phone. Discovers brands on Instagram and TikTok, validates on WhatsApp with friends.",
+      "question_she_asks": "Does this actually work for my skin type, or is this just a nice jar?",
+      "what_she_already_knows": "Shea butter exists. Natural is better than chemical. African skincare ingredients are underrated.",
+      "what_she_does_not_want": "A lecture. A 10-step routine. Jargon she has to Google. Products that assume her skin is an afterthought."
+    },
+    "secondary": {
+      "name": "Brian",
+      "age": "34",
+      "location": "Westlands, Nairobi",
+      "occupation": "Engineer",
+      "context": "Buys as a gift. Arrived via a shared link or someone's story. Needs to understand the product in under 30 seconds. Wants to feel confident the gift is quality.",
+      "question_he_asks": "Will this impress the person I'm buying it for?",
+      "what_he_already_knows": "Almost nothing about skincare. He trusts reviews and simple, clear descriptions."
+    }
+  },
+
+  "pillars": [
+    {
+      "name": "Ingredient Education",
+      "description": "What is in the product, where it comes from, and why it works. Evidence-first. No fluff.",
+      "examples": [
+        "What unrefined shea butter actually does to your skin barrier",
+        "Why aloe vera and shea butter work better together",
+        "What the label means: unrefined vs refined shea butter"
+      ]
+    },
+    {
+      "name": "Skin and Hair Routines",
+      "description": "Practical guides. How to get results with natural products. Honest about what works and what does not.",
+      "examples": [
+        "A 3-product natural moisturising routine that actually sticks",
+        "How to use shea butter on 4C hair without the grease",
+        "Morning vs night: when to use shea butter"
+      ]
+    },
+    {
+      "name": "African Beauty",
+      "description": "Cultural context, sourcing, heritage. Celebrates what African ingredients have always known. Not nostalgic — current and confident.",
+      "examples": [
+        "West African women have been using shea butter for 600 years. Here is what they knew.",
+        "Why African skincare ingredients are finally getting their due",
+        "Where Lovi's shea comes from and why it matters"
+      ]
+    },
+    {
+      "name": "Real Results",
+      "description": "Customer stories, before and after, UGC. Social proof that feels real, not manufactured.",
+      "examples": [
+        "How Amina fixed her dry elbows in two weeks",
+        "What 30 days of Lovi Shea Butter actually did to my skin",
+        "Customer review: the gift that started a skincare routine"
+      ]
+    }
+  ],
+
+  "products": [
+    {
+      "name": "Lovi Shea Butter",
+      "slug": "lovi-shea-butter",
+      "sizes": ["100g", "250g", "500g"],
+      "ingredients": ["Shea butter", "Aloe vera", "Coconut oil"],
+      "use_cases": ["dry skin", "hair moisturising", "lip care", "baby skin", "after-shower"],
+      "status": "live"
+    },
+    {
+      "name": "Lovi Shea + Tea Tree",
+      "slug": "lovi-shea-tea-tree",
+      "status": "coming_soon",
+      "use_cases": ["acne-prone skin", "oily skin"]
+    },
+    {
+      "name": "Lovi Shea + Vanilla",
+      "slug": "lovi-shea-vanilla",
+      "status": "coming_soon",
+      "use_cases": ["fragrance lovers", "gifting"]
+    },
+    {
+      "name": "Lovi Shea for Hair",
+      "slug": "lovi-shea-hair",
+      "status": "coming_soon",
+      "use_cases": ["natural hair", "loc maintenance", "scalp care"]
+    }
+  ],
+
+  "ctas": {
+    "whatsapp_order": "Order via WhatsApp — wa.me/[FILL]",
+    "shop": "Shop Lovi Shea Butter at loviroots.com",
+    "email_capture": "Join the Lovi list for skincare tips every week",
+    "gift": "Give the gift of natural skin — shop Lovi at loviroots.com"
+  },
+
+  "seo_topics": [
+    "shea butter benefits for skin",
+    "unrefined shea butter Kenya",
+    "natural moisturiser for dry skin Kenya",
+    "African skincare ingredients",
+    "how to use shea butter for hair",
+    "shea butter vs cocoa butter",
+    "natural skincare routine dry skin",
+    "aloe vera and shea butter benefits",
+    "shea butter for 4C hair",
+    "best natural moisturiser Nairobi",
+    "where to buy shea butter Kenya",
+    "shea butter for baby skin"
+  ],
+
+  "social_specs": {
+    "instagram": {
+      "caption_max": 2200,
+      "hook_cutoff": 125,
+      "hook_rule": "Hook must land before the more cut — under 125 chars, no emoji required, make a claim or ask a question",
+      "body": "150-200 words. Conversational. No section headers.",
+      "hashtags": "3-5 at the end. Category tags only — not brand tags.",
+      "cta": "Last line. One CTA from the approved list.",
+      "links": "No external links in caption — not clickable on Instagram."
+    },
+    "whatsapp": {
+      "max_sentences": 2,
+      "rule": "Must make complete sense with zero context. Written to be forwarded. No jargon.",
+      "optional_link": "Add WhatsApp order link if piece is product-focused."
+    },
+    "tiktok": {
+      "format": "Hook line only (first 3 seconds of script)",
+      "rule": "One spoken line. Read it aloud — if it sounds stiff, rewrite. Claim, mistake, or subverted expectation."
+    },
+    "email": {
+      "subject_max": 50,
+      "preview_max": 90,
+      "rule": "Subject sets the promise. Preview delivers what the subject withheld. Do not repeat the subject line."
+    }
+  },
+
+  "publishing_cadence": {
+    "blog": "2 posts per month",
+    "instagram": "3 posts per week",
+    "whatsapp_broadcast": "1 per week",
+    "email": "1 per month (newsletter)"
+  },
+
+  "lead_magnet": {
+    "title": "The Lovi Skin Guide — 5 natural ingredients your skin actually needs",
+    "format": "PDF, email-gated",
+    "status": "planned",
+    "cta": "Get the free guide at loviroots.com"
+  },
+
+  "published": []
+}
