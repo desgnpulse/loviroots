@@ -1,4 +1,5 @@
 CLAUDE.local.md
+.claude/CLAUDE.md
 .env
 .env.*
 !.env.example
