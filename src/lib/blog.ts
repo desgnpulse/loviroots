@@ -6,6 +6,7 @@ export type BlogPost = {
   date: string;
   readTime: string;
   category: string;
+  content?: string; // HTML from WP; absent on static stub posts
 };
 
 // Static data — replaced by WPGraphQL queries in Step 4

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ProductCard } from "@/components/product/ProductCard";
-import { PRODUCTS } from "@/lib/products";
+import { getAllProducts } from "@/lib/wp/products";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Products",
@@ -10,7 +12,9 @@ export const metadata: Metadata = {
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await getAllProducts();
+
   return (
     <div className="bg-ivory min-h-screen">
       <section className="px-4 py-16 sm:py-20">
@@ -25,7 +29,7 @@ export default function ProductsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PRODUCTS.map((product) => (
+            {products.map((product) => (
               <ProductCard
                 key={product.slug}
                 name={product.name}
