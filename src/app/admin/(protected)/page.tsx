@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllOrders, getPendingReviews } from "@/lib/admin-store";
+import { AdminStats } from "@/components/admin/AdminStats";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Dashboard | Lovi Admin" };
@@ -10,13 +11,6 @@ export default function AdminDashboard() {
   const pendingReviews = getPendingReviews();
   const pendingOrders = orders.filter((o) => o.status === "pending");
   const shippedOrders = orders.filter((o) => o.status === "shipped");
-
-  const stats = [
-    { label: "Total orders", value: orders.length },
-    { label: "Pending", value: pendingOrders.length },
-    { label: "Shipped", value: shippedOrders.length },
-    { label: "Reviews to approve", value: pendingReviews.length },
-  ];
 
   return (
     <div>
@@ -30,14 +24,12 @@ export default function AdminDashboard() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-2xl border border-earth/10 p-5">
-            <p className="text-2xl font-bold text-earth">{s.value}</p>
-            <p className="text-xs text-earth/50 mt-1">{s.label}</p>
-          </div>
-        ))}
-      </div>
+      <AdminStats
+        total={orders.length}
+        pending={pendingOrders.length}
+        shipped={shippedOrders.length}
+        pendingReviews={pendingReviews.length}
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Link
