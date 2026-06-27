@@ -22,6 +22,11 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@desgnpulse'
 
+      - name: Authenticate GitHub Packages
+        run: pnpm config set "//npm.pkg.github.com/:_authToken" "${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         env:
