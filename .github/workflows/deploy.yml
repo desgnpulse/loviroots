@@ -1,0 +1,53 @@
+name: CI / Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  typecheck:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Type check
+        run: pnpm typecheck
+
+  deploy:
+    name: Deploy to Hetzner
+    needs: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        with:
+          host: ${{ secrets.HETZNER_HOST }}
+          username: ${{ secrets.HETZNER_USER }}
+          key: ${{ secrets.HETZNER_SSH_KEY }}
+          envs: NODE_AUTH_TOKEN
+          script: |
+            set -e
+            cd /home/desgvjox/apps/loviroots
+            git pull origin main
+            pnpm install --frozen-lockfile
+            pnpm build
+            cp -r public .next/standalone/
+            cp -r .next/static .next/standalone/.next/static
+            pm2 reload ecosystem.config.js --only lovi 2>/dev/null || pm2 start ecosystem.config.js
