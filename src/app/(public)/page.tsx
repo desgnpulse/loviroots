@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { EmailCapture } from "@/components/marketing/EmailCapture";
@@ -102,11 +103,16 @@ export default async function HomePage() {
           </p>
         </div>
 
-        {/* Right — image placeholder; swap div for <Image> once photography is ready */}
-        <div className="order-1 lg:order-2 h-72 sm:h-96 lg:h-auto bg-gradient-to-br from-[#ede0cc] to-[#c9b08a] flex items-center justify-center">
-          <p className="text-earth/20 text-[10px] font-semibold uppercase tracking-widest">
-            Product photo
-          </p>
+        {/* Right — hero image */}
+        <div className="order-1 lg:order-2 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+          <Image
+            src="/images/products/shea-butter.jpg"
+            alt="Lovi Shea Butter — unrefined, in a glass jar on natural linen"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 42vw"
+            priority
+          />
         </div>
       </section>
 
@@ -162,12 +168,16 @@ export default async function HomePage() {
       <section className="bg-white px-6 sm:px-8 py-28 border-y border-earth/8">
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-16 lg:gap-24 items-center">
-            {/* Image LEFT — swap div for <Image> once photography is ready */}
+            {/* Image LEFT */}
             <div>
-              <div className="aspect-[4/5] rounded-lg bg-gradient-to-br from-[#f0e8d8] to-[#ddd0b4] flex items-center justify-center">
-                <p className="text-earth/20 text-[10px] font-medium uppercase tracking-widest">
-                  Product photo
-                </p>
+              <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
+                <Image
+                  src="/images/products/shea-butter.jpg"
+                  alt="Lovi Shea Butter — 100% unrefined"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
               </div>
             </div>
 

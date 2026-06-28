@@ -83,7 +83,7 @@ function mapProduct(node: WPProductNode): Product {
     description: node.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
     image:
       node.featuredImage?.node.sourceUrl ??
-      "/images/products/placeholder.jpg",
+      "/images/products/shea-butter.jpg",
     sizes: f.sizes as ProductSize[],
     rating: f.rating,
     reviewCount: f.reviewCount,
