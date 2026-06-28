@@ -4,6 +4,11 @@ import {
   getPostBySlug as staticGetPostBySlug,
   type BlogPost,
 } from "@/lib/blog";
+import {
+  getAllMdxPosts,
+  getMdxPost,
+  getMdxPostSlugs,
+} from "@/lib/mdx-blog";
 
 // ── WP response types ────────────────────────────────────────────────────────
 
@@ -69,26 +74,38 @@ function mapPost(node: WPPostNode): BlogPost {
   };
 }
 
-// ── Public API (falls back to static data if WP_GRAPHQL_URL is not set) ─────
+// ── Public API — resolution order: MDX files → WP → static stubs ────────────
 
 export async function getAllPosts(): Promise<BlogPost[]> {
-  if (!wpClient) return BLOG_POSTS;
+  const mdxPosts = await getAllMdxPosts();
+
+  if (!wpClient) return mdxPosts.length ? mdxPosts : BLOG_POSTS;
+
   try {
     const data = await wpClient.request<WPPostsData>(GET_POSTS);
-    return data.posts.nodes.map(mapPost);
+    const wpPosts = data.posts.nodes.map(mapPost);
+    const mdxSlugs = new Set(mdxPosts.map((p) => p.slug));
+    const merged = [
+      ...mdxPosts,
+      ...wpPosts.filter((p) => !mdxSlugs.has(p.slug)),
+    ];
+    return merged.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
   } catch {
-    return BLOG_POSTS;
+    return mdxPosts.length ? mdxPosts : BLOG_POSTS;
   }
 }
 
 export async function getPostBySlug(
   slug: string
 ): Promise<BlogPost | undefined> {
+  const mdx = await getMdxPost(slug);
+  if (mdx) return mdx;
+
   if (!wpClient) return staticGetPostBySlug(slug);
   try {
-    const data = await wpClient.request<WPPostData>(GET_POST_BY_SLUG, {
-      slug,
-    });
+    const data = await wpClient.request<WPPostData>(GET_POST_BY_SLUG, { slug });
     return data.post ? mapPost(data.post) : undefined;
   } catch {
     return staticGetPostBySlug(slug);
@@ -96,6 +113,18 @@ export async function getPostBySlug(
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
-  const posts = await getAllPosts();
-  return posts.map((p) => p.slug);
+  const mdxSlugs = getMdxPostSlugs();
+  const wpSlugs: string[] = [];
+
+  if (wpClient) {
+    try {
+      const data = await wpClient.request<WPPostsData>(GET_POSTS);
+      wpSlugs.push(...data.posts.nodes.map((n) => n.slug));
+    } catch {
+      // fall through
+    }
+  }
+
+  const all = [...new Set([...mdxSlugs, ...wpSlugs])];
+  return all.length ? all : BLOG_POSTS.map((p) => p.slug);
 }

@@ -15,7 +15,7 @@ ERRORS=0
 # ── PROJECT-SPECIFIC EXCLUSIONS ───────────────────────────────────
 # new-project.sh replaces the lines below with project values.
 EXCLUDE_DIRS=(".claude" "scripts" "docs" "data" "plugins" "node_modules" ".next")
-EXCLUDE_FILES=("CLAUDE.md" "CLAUDE.local.md")
+EXCLUDE_FILES=("CLAUDE.md" "CLAUDE.local.md" "program.md")
 # ─────────────────────────────────────────────────────────────────
 
 red()   { printf "\033[31m%s\033[0m\n" "$*"; }

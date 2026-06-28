@@ -183,5 +183,59 @@
     "cta": "Get the free guide at loviroots.com"
   },
 
-  "published": []
+  "published": [],
+
+  "thesis_threads": [
+    {
+      "name": "Shea Butter Science",
+      "pillar": "Ingredient Education",
+      "thesis": "Shea butter is one of the most studied skin barrier ingredients on earth. Most people do not know why it works — they just know it does. Closing that gap builds trust and repeat purchase.",
+      "published_slugs": [],
+      "open_angles": [
+        "What unrefined shea butter does to the skin barrier that refined shea cannot",
+        "The fatty acid profile of shea butter — karite acids and what makes them unusual",
+        "Shea butter vs cocoa butter: what is different at the skin level",
+        "Why shea butter works on 4C hair but most commercial products undo the effect",
+        "The ingredient label decoded: what to look for when buying shea butter in Kenya"
+      ]
+    },
+    {
+      "name": "The Natural Routine",
+      "pillar": "Skin and Hair Routines",
+      "thesis": "East African skin has specific needs — climate, humidity, hard water, and diet all shape it. Most skincare content is written for Western skin and Western weather. Lovi should own the practical, honest guide for this market.",
+      "published_slugs": [],
+      "open_angles": [
+        "A 3-step natural skincare routine that works in Nairobi humidity",
+        "The LOC method for natural hair and where shea butter fits in",
+        "Morning vs night: when to use shea butter and when not to",
+        "How to layer shea butter with aloe vera without a greasy finish",
+        "Skincare basics for dark skin: hyperpigmentation, uneven tone, and what actually helps",
+        "A weekly hair care routine using only natural products"
+      ]
+    },
+    {
+      "name": "African Ingredients, Global Recognition",
+      "pillar": "African Beauty",
+      "thesis": "West African women have used shea butter for centuries. That knowledge predates the Western skincare industry by 600 years. Lovi exists to take that knowledge seriously — not as nostalgia but as science that has been proven.",
+      "published_slugs": [],
+      "open_angles": [
+        "Where Lovi shea comes from and the supply chain behind it",
+        "West African women have used shea butter for 600 years. What they already knew.",
+        "Why African beauty ingredients are reaching global shelves now",
+        "The difference between mass-market shea and small-batch unrefined shea"
+      ]
+    },
+    {
+      "name": "Real Skin, Real Results",
+      "pillar": "Real Results",
+      "thesis": "Social proof built around real results outperforms any ingredient claim. The most shareable content Lovi can produce shows transformation — dry to nourished, reactive to calm — in everyday Nairobi skin.",
+      "published_slugs": [],
+      "open_angles": [
+        "What 30 days of daily shea butter actually does to dry skin",
+        "How shea butter changed one customer's post-pregnancy skincare routine",
+        "Gifting shea butter: why it works as a gift and what people say after",
+        "Three Nairobi women on what switched them from mainstream moisturisers"
+      ]
+    }
+  ]
 }
