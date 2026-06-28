@@ -122,6 +122,10 @@ for path in files:
             continue
         if line.startswith('- ') or line.startswith('* '):
             line = line[2:]
+        # strip markdown bold/italic and links before splitting so bold labels
+        # (e.g. **Label.**) don't merge with the following sentence
+        line = re.sub(r'\*+([^*]+)\*+', r'\1', line)
+        line = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', line)
         for s in re.split(r'(?<=[.?])\s+', line):
             s = s.strip()
             if s:
