@@ -102,14 +102,23 @@ for path in files:
     raw_lines = open(path).readlines()
     sentences = []
     in_code = False
+    in_frontmatter = False
+    frontmatter_count = 0
     for line in raw_lines:
-        if line.strip().startswith('```'):
+        stripped = line.strip()
+        if stripped == '---':
+            frontmatter_count += 1
+            in_frontmatter = frontmatter_count == 1
+            continue
+        if in_frontmatter:
+            continue
+        if stripped.startswith('```'):
             in_code = not in_code
             continue
         if in_code:
             continue
-        line = line.strip()
-        if not line or line.startswith('#') or line.startswith('---') or line.startswith('|'):
+        line = stripped
+        if not line or line.startswith('#') or line.startswith('|'):
             continue
         if line.startswith('- ') or line.startswith('* '):
             line = line[2:]
