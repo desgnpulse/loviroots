@@ -81,8 +81,26 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
           )}
 
+          {/* WhatsApp CTA */}
+          {process.env.NEXT_PUBLIC_WHATSAPP_NUMBER && (
+            <div className="mt-12 rounded-2xl bg-leaf/10 px-6 py-8 text-center">
+              <p className="font-display text-lg font-semibold text-earth mb-1">
+                Ready to try Lovi Shea Butter?
+              </p>
+              <p className="text-sm text-earth/60 mb-5">
+                Order directly on WhatsApp — we deliver across Kenya.
+              </p>
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Lovi! I'd like to order Lovi Shea Butter. Please assist.")}`}
+                className="inline-flex items-center gap-2 bg-earth text-ivory text-sm font-semibold px-6 py-3 rounded-full hover:bg-forest transition-colors"
+              >
+                Order on WhatsApp
+              </a>
+            </div>
+          )}
+
           {/* Back link */}
-          <div className="mt-16 pt-8 border-t border-earth/10">
+          <div className="mt-10 pt-8 border-t border-earth/10">
             <Link
               href="/blog"
               className="text-sm font-medium text-leaf hover:text-earth transition-colors"

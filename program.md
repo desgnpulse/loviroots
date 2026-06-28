@@ -88,9 +88,7 @@ status: draft
   harness, cutting-edge, transformative, game-changer, revolutionary, utilize, facilitate, initiate,
   innovative, holistic, empower, journey, ecosystem.
 - Closing: end on something Amina can do, try, or think about differently. Not a summary of what you said.
-- Final line: a WhatsApp CTA link using this format:
-  `[Order Lovi Shea Butter on WhatsApp.](https://wa.me/[NEXT_PUBLIC_WHATSAPP_NUMBER]?text=...)`
-  Only include if the article is product-adjacent. Skip for pure educational content with no purchase hook.
+- Do NOT include a WhatsApp link in the MDX body. The page injects a CTA from the env var automatically.
 
 ---
 
