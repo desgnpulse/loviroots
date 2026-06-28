@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { EmailCapture } from "@/components/marketing/EmailCapture";
-import { PRODUCTS } from "@/lib/products";
-import { BLOG_POSTS } from "@/lib/blog";
+import { getAllProducts } from "@/lib/wp/products";
+import { getAllPosts } from "@/lib/wp/blog";
 
 export const metadata: Metadata = {
   title: "Natural Shea Butter Skincare | Loviroots",
@@ -54,8 +54,9 @@ const RITUAL_STEPS = [
   },
 ];
 
-export default function HomePage() {
-  const product = PRODUCTS[0];
+export default async function HomePage() {
+  const [products, posts] = await Promise.all([getAllProducts(), getAllPosts()]);
+  const product = products[0];
 
   const heroWaUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
     "Hi Lovi! I'd like to learn more about your shea butter. Please assist."
@@ -277,7 +278,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-earth/10">
-            {BLOG_POSTS.slice(0, 2).map((post, i) => (
+            {posts.slice(0, 2).map((post, i) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
