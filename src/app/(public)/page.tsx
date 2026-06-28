@@ -106,8 +106,8 @@ export default async function HomePage() {
         {/* Right — hero image */}
         <div className="order-1 lg:order-2 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
           <Image
-            src="/images/products/shea-butter.jpg"
-            alt="Lovi Shea Butter — unrefined, in a glass jar on natural linen"
+            src="/images/products/shea-hero.jpg"
+            alt="Lovi Shea Butter held in hands — warm lifestyle"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 42vw"
@@ -172,8 +172,8 @@ export default async function HomePage() {
             <div>
               <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
                 <Image
-                  src="/images/products/shea-butter.jpg"
-                  alt="Lovi Shea Butter — 100% unrefined"
+                  src="/images/products/shea-product.jpg"
+                  alt="Lovi Shea Butter — unrefined, sourced from West Africa"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 45vw"
