@@ -35,10 +35,10 @@ flag() {
   done
 
   local files
-  files=$(grep -rIl --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
+  files=$(grep -rIl --include="*.md" --include="*.mdx" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
   if [ -n "$files" ]; then
     red "FAIL: $desc"
-    grep -rIn --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
+    grep -rIn --include="*.md" --include="*.mdx" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
     ERRORS=$((ERRORS + 1))
   fi
 }
@@ -93,7 +93,7 @@ else:
     for root, dirs, names in os.walk(target):
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS_PY and not d.startswith('.')]
         for name in names:
-            if name.endswith('.md') and name not in EXCLUDE_FILES:
+            if (name.endswith('.md') or name.endswith('.mdx')) and name not in EXCLUDE_FILES:
                 files.append(os.path.join(root, name))
 
 LIMIT = 20
