@@ -37,7 +37,8 @@ The website must reflect this clearly: no clutter, no ambiguity, one primary act
 
 - No marketplace integrations (Amazon, Jumia, etc.) at launch
 - No subscription / auto-replenishment feature at launch
-- No multi-currency or international shipping at launch
+- Kenya only at launch — no international or cross-border shipping in v1
+- No multi-currency support at launch (KES only)
 - No customer accounts / loyalty programme at launch
 - No live chat or AI support bot at launch
 
@@ -93,7 +94,7 @@ Two purchasing paths exist simultaneously. WhatsApp is the **default, prominentl
 
 1. Customer clicks **"Checkout online"** (secondary, text link or outlined button below the WhatsApp CTA)
 2. Enters name, email, delivery address, phone
-3. Pays via M-Pesa STK push or card (Intasend / Pesapal — TBD)
+3. Pays via M-Pesa STK push or card (Pesapal)
 4. Order confirmation email sent automatically
 5. Order lands in admin queue for manual packing
 
@@ -120,7 +121,7 @@ Two purchasing paths exist simultaneously. WhatsApp is the **default, prominentl
 
 - Hero CTA on homepage: "Be first to know — join the Lovi list"
 - Inline capture forms on: homepage hero, blog post footers, exit-intent popup (desktop only)
-- Integration: Mailchimp or Brevo (TBD)
+- Integration: Brevo
 - Confirmation email sent on signup; no double opt-in required for v1
 
 ### 6.4 Blog / Editorial
@@ -187,7 +188,7 @@ Product pages → Add to cart (local) → Cart summary → WhatsApp (default) or
 
 ### Email Capture Flow
 ```
-Homepage / Blog → CTA form → Confirmation email → Welcome sequence (Mailchimp/Brevo)
+Homepage / Blog → CTA form → Confirmation email → Welcome sequence (Brevo)
 ```
 
 ### Admin Order Flow
@@ -204,7 +205,7 @@ WhatsApp message received → Lovi team processes manually → Packs & ships
 |-------|--------|-----------|
 | Frontend | Next.js (App Router) + TypeScript | SSR/SSG for SEO; App Router for layouts |
 | Styling | TailwindCSS v4 | Utility-first, matches design system approach |
-| CMS | Headless WordPress + WPGraphQL | Blog + product content managed by non-devs |
+| CMS | Headless WordPress + WPGraphQL (self-hosted, subdomain TBD e.g. `cms.loviroots.com`) | Blog + product content managed by non-devs |
 | Auth | NextAuth.js | Admin-only session; no customer accounts in v1 |
 | Ordering (primary) | WhatsApp wa.me deep links | Default CTA; zero gateway complexity |
 | Ordering (secondary) | Pesapal (M-Pesa STK push + card) | Web checkout for customers who prefer it |
@@ -216,6 +217,14 @@ WhatsApp message received → Lovi team processes manually → Packs & ships
 ---
 
 ## 10. Design System
+
+**Brand Naming:**
+
+| Context | Use |
+|---------|-----|
+| About page, company bio, legal copy, invoices | **Loviroots** |
+| Product names, social copy, CTAs, casual mentions | **Lovi** |
+| Never | ~~Lovy~~ |
 
 **Colors:**
 - Ivory `#F8F4EC` — backgrounds, cards
@@ -286,10 +295,12 @@ WhatsApp message received → Lovi team processes manually → Packs & ships
 |---|----------|-------|--------|
 | 1 | ~~Payment gateway — Intasend or Pesapal?~~ **Pesapal** ✓ | — | Closed |
 | 2 | ~~Marketing email tool — Brevo or Mailchimp?~~ **Brevo** ✓ | — | Closed |
-| 3 | WhatsApp Business number confirmed and verified? | Jay | Phase 1 |
-| 3 | Will WordPress be self-hosted or managed (WP.com)? | Jay | Phase 1 |
-| 4 | Shipping rates — flat fee or weight-based? | Jay | Phase 1 |
-| 5 | Launch market — Kenya only, or EA-wide from day one? | Jay | Phase 1 |
+| 3 | ~~Will WordPress be self-hosted or managed?~~ **Self-hosted on subdomain** (subdomain name TBD) ✓ | — | Closed |
+| 4 | ~~Shipping rates — flat fee or weight-based?~~ **Flat fee** (rate TBD, subject to change) ✓ | — | Closed |
+| 5 | ~~Launch market — Kenya only, or EA-wide?~~ **Kenya only at launch** ✓ | — | Closed |
+| 6 | WhatsApp Business number confirmed and verified? | Jay | Phase 1 |
+| 7 | WordPress subdomain — confirm name (e.g. `cms.loviroots.com`) | Jay | Phase 1 |
+| 8 | Flat shipping rate — confirm KES amount | Jay | Phase 1 |
 
 ---
 
@@ -310,3 +321,5 @@ WhatsApp message received → Lovi team processes manually → Packs & ships
 |---------|------|--------|
 | 1.0 | 2026-06-24 | Initial PRD — brand renamed from Lovy to Lovi |
 | 1.1 | 2026-06-24 | Clarified: registered brand is Loviroots; Lovi is the customer-facing short name |
+| 1.2 | 2026-06-24 | Decisions: WordPress self-hosted on subdomain; flat-fee shipping; Kenya-only launch |
+| 1.3 | 2026-06-24 | Added brand naming table; fixed stale TBDs (Pesapal, Brevo now confirmed) |

@@ -14,7 +14,7 @@ ERRORS=0
 
 # ── PROJECT-SPECIFIC EXCLUSIONS ───────────────────────────────────
 # new-project.sh replaces the lines below with project values.
-EXCLUDE_DIRS=(".claude" "scripts" "docs" "node_modules" ".next")
+EXCLUDE_DIRS=(".claude" "scripts" "docs" "data" "plugins" "node_modules" ".next")
 EXCLUDE_FILES=("CLAUDE.md" "CLAUDE.local.md")
 # ─────────────────────────────────────────────────────────────────
 
@@ -70,6 +70,7 @@ label "Credential safety"
 flag "Possible API key pattern found" '(sk-ant-|sk-[a-z]+-|AKIA|ghp_|ghs_)[A-Za-z0-9_-]{16,}'
 
 label "Readability (max 20 words per sentence)"
+export LINT_EXCLUDE_DIRS="${EXCLUDE_DIRS[*]}"
 python3 - "$TARGET" <<'PYEOF'
 import sys, re, os
 

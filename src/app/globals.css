@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../node_modules/@desgnpulse/ui/dist/index.mjs";
 
 @theme {
   /* Brand colours */
@@ -6,10 +7,12 @@
   --color-earth:      #4A2E1F;
   --color-leaf:       #8DBE77;
   --color-gold:       #D6AD60;
+  --color-forest:     #243324;
+  --color-ink:        #111111;
 
   /* Semantic aliases */
   --color-background: var(--color-ivory);
-  --color-foreground: var(--color-earth);
+  --color-foreground: var(--color-ink);
 
   /* Typography */
   --font-display: var(--font-playfair), Georgia, serif;
@@ -19,7 +22,7 @@
 html {
   font-family: var(--font-sans);
   background-color: var(--color-ivory);
-  color: var(--color-earth);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,7 +37,7 @@ h1, h2, h3 {
   line-height: 1.75;
 }
 .prose-lovi p              { margin-bottom: 1.25rem; }
-.prose-lovi h2             { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-earth); margin: 2rem 0 0.75rem; }
+.prose-lovi h2             { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-ink); margin: 2rem 0 0.75rem; }
 .prose-lovi h3             { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--color-earth); margin: 1.5rem 0 0.5rem; }
 .prose-lovi ul, .prose-lovi ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
 .prose-lovi ul             { list-style: disc; }
@@ -43,6 +46,12 @@ h1, h2, h3 {
 .prose-lovi blockquote     { border-left: 3px solid var(--color-leaf); padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: color-mix(in srgb, var(--color-earth) 60%, transparent); }
 .prose-lovi a              { color: var(--color-leaf); text-decoration: underline; text-underline-offset: 2px; }
 .prose-lovi a:hover        { color: var(--color-earth); }
-.prose-lovi strong         { font-weight: 600; color: var(--color-earth); }
+.prose-lovi strong         { font-weight: 600; color: var(--color-ink); }
 .prose-lovi img            { width: 100%; border-radius: 0.75rem; margin: 1.5rem 0; }
 .prose-lovi hr             { border-color: color-mix(in srgb, var(--color-earth) 10%, transparent); margin: 2rem 0; }
+
+/* @desgnpulse/ui token overrides — map dp surface tokens to Lovi palette */
+:root {
+  --dp-surface-bg: var(--color-ivory);
+  --dp-surface-fg: var(--color-earth);
+}

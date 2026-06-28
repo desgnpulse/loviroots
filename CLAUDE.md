@@ -26,7 +26,7 @@ loviroots.com                           — domain (registered)
 
 ## 3. KEY CONVENTIONS
 - Registered brand: LOVIROOTS. Short name customers use: LOVI. Never "Lovy".
-- Use Loviroots in: About page, company bio, legal copy, formal contexts.
+- Use Loviroots in: About page, company bio, legal copy, invoices, formal contexts.
 - Use Lovi in: product names, casual copy, social, conversational CTAs.
 - WhatsApp CTA is always the primary button; "checkout online" sits below it as secondary
 - No customer DB in v1 — WordPress/MySQL is CMS only; orders managed via WhatsApp + admin panel
@@ -38,3 +38,20 @@ loviroots.com                           — domain (registered)
 loviroots.com        — public brand + shop
 loviroots.com/admin  — order management (protected, admin only)
 loviroots.com/blog   — editorial / skincare content (sourced from WP)
+
+## 5. CONTENT SYSTEM (cc4-marketing)
+
+Context file:  data/marketing-context.json   — voice, personas, pillars, CTAs, SEO topics
+Review agents: plugins/marketing/agents/      — load these on any content review pass
+
+Agents:
+- brand-voice-keeper.md   — enforce Lovi voice; check banned words, sentence length, opening hook
+- buyer-persona.md        — Amina persona review; would she forward this on WhatsApp?
+- conversion-auditor.md   — funnel alignment; one CTA, correct stage, no dead ends
+
+Workflow:
+  /cf-generate  → draft from marketing-context.json
+  /cf-repurpose → adapt draft to Instagram / WhatsApp / TikTok / email formats
+  /cf-schedule  → queue to publishing-context.json
+
+On any content review task: load all three agents and run their checks before marking copy as ready.

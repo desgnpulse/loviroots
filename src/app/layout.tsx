@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { playfair, inter } from "@/lib/fonts";
+import { cormorant, inter } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} h-full`}
+      className={`${cormorant.variable} ${inter.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-ivory text-earth antialiased">
+      <body className="min-h-full flex flex-col bg-ivory text-ink antialiased">
         {children}
       </body>
     </html>

@@ -1,45 +1,39 @@
 import Link from "next/link";
 import { CartBadge } from "./CartBadge";
 
-const nav = [
-  { label: "Products", href: "/products" },
-  { label: "How to Use", href: "/how-to-use" },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
-];
-
 export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-ivory border-b border-earth/10">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-8 h-14 flex items-center justify-between">
+        {/* Left anchor */}
+        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-earth/35 hidden sm:block">
+          Est. 2024 · Nairobi
+        </p>
+
+        {/* Center wordmark — absolutely centered so it doesn't shift with nav width */}
         <Link
           href="/"
-          className="font-display text-xl font-bold text-earth tracking-tight"
+          className="absolute left-1/2 -translate-x-1/2 font-display text-xl font-bold text-ink"
         >
-          Loviroots
+          Lovi
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          {nav.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="font-sans text-sm text-earth/80 hover:text-earth transition-colors"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <CartBadge />
+        {/* Right nav */}
+        <nav className="flex items-center gap-6">
           <Link
             href="/products"
-            className="hidden md:inline-flex items-center gap-2 bg-leaf text-earth text-sm font-medium px-5 py-2 rounded-full hover:bg-[#7aad65] transition-colors"
+            className="text-[10px] font-semibold uppercase tracking-[0.2em] text-earth/40 hover:text-earth transition-colors hidden sm:block"
           >
-            Shop Now
+            Shop
           </Link>
-        </div>
+          <Link
+            href="/blog"
+            className="text-[10px] font-semibold uppercase tracking-[0.2em] text-earth/40 hover:text-earth transition-colors hidden sm:block"
+          >
+            Journal
+          </Link>
+          <CartBadge />
+        </nav>
       </div>
     </header>
   );
