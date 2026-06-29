@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/wp/blog";
+import { RelatedArticles } from "@/components/blog/RelatedArticles";
+import linkGraph from "@/data/link-graph.json";
 
 export const revalidate = 60;
 
@@ -32,6 +34,8 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) notFound();
+
+  const relatedPosts = (linkGraph as Record<string, unknown[]>)[slug] ?? [];
 
   return (
     <div className="bg-ivory min-h-screen">
@@ -81,6 +85,11 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
           )}
 
+          {/* Related articles */}
+          {relatedPosts.length > 0 && (
+            <RelatedArticles posts={relatedPosts as Parameters<typeof RelatedArticles>[0]["posts"]} />
+          )}
+
           {/* WhatsApp CTA */}
           {process.env.NEXT_PUBLIC_WHATSAPP_NUMBER && (
             <div className="mt-12 rounded-2xl bg-leaf/10 px-6 py-8 text-center">
@@ -88,7 +97,7 @@ export default async function BlogPostPage({ params }: Props) {
                 Ready to try Lovi Shea Butter?
               </p>
               <p className="text-sm text-earth/60 mb-5">
-                Order directly on WhatsApp — we deliver across Kenya.
+                Order directly on WhatsApp. We deliver across East Africa.
               </p>
               <a
                 href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Lovi! I'd like to order Lovi Shea Butter. Please assist.")}`}
