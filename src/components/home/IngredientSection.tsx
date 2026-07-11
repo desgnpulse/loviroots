@@ -5,7 +5,7 @@ type Props = { product: Product };
 
 export function IngredientSection({ product }: Props) {
   // Derive the display INCI name from the real product data rather than
-  // hardcoding it — products.ts currently lists a single ingredient:
+  // hardcoding it - products.ts currently lists a single ingredient:
   // "Butyrospermum Parkii (Shea) Butter".
   const inciFull = product.ingredients[0] ?? "Shea Butter";
   const inciName = inciFull.replace(/\s*\([^)]*\)\s*/g, " ").replace(/\s+/g, " ").trim();
@@ -32,19 +32,19 @@ export function IngredientSection({ product }: Props) {
               <div className="lv-row">
                 <dt>Added fragrance</dt>
                 <dd>
-                  <b>None</b>{" "}&mdash; the scent is the shea
+                  <b>None</b>{" "} - the scent is the shea
                 </dd>
               </div>
               <div className="lv-row">
                 <dt>Preservatives</dt>
                 <dd>
-                  <b>None</b>{" "}&mdash; naturally shelf-stable
+                  <b>None</b>{" "} - naturally shelf-stable
                 </dd>
               </div>
               <div className="lv-row">
                 <dt>Bleaching / deodorising</dt>
                 <dd>
-                  <b>Never</b>{" "}&mdash; ivory colour left as pressed
+                  <b>Never</b>{" "} - ivory colour left as pressed
                 </dd>
               </div>
               <div className="lv-row">

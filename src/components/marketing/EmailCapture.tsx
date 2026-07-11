@@ -37,13 +37,13 @@ export function EmailCapture() {
           Be first to know.
         </h2>
         <p className="lv-sub">
-          New batches, new sizes, and the occasional honest essay on skin. No noise &mdash;
+          New batches, new sizes, and the occasional honest essay on skin. No noise - 
           we&rsquo;re too small for that.
         </p>
 
         {status === "success" ? (
           <p className="lv-cap-ok" role="status">
-            Karibu &mdash; you&rsquo;re on the list. Watch your inbox.
+            Karibu - you&rsquo;re on the list. Watch your inbox.
           </p>
         ) : (
           <>

@@ -11,7 +11,7 @@ const steps = [
   {
     number: "01",
     title: "Start with clean, damp skin",
-    body: "Apply shea butter right after your shower, while your skin is still slightly damp. The moisture is already there — shea helps lock it in.",
+    body: "Apply shea butter right after your shower, while your skin is still slightly damp. The moisture is already there - shea helps lock it in.",
   },
   {
     number: "02",
@@ -60,7 +60,7 @@ const useCases = [
 const faqs = [
   {
     q: "Will it break me out?",
-    a: "Shea butter is rated 0 to 2 on the comedogenic scale — most people with oily or acne-prone skin use it without breakouts, especially in small amounts. If you are new to it, do a patch test on your inner arm first.",
+    a: "Shea butter is rated 0 to 2 on the comedogenic scale - most people with oily or acne-prone skin use it without breakouts, especially in small amounts. If you are new to it, do a patch test on your inner arm first.",
   },
   {
     q: "How long does one jar last?",

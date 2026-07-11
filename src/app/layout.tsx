@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Loviroots — Nature's Touch, Lovingly Yours",
+    default: "Loviroots - Nature's Touch, Lovingly Yours",
     template: "%s | Loviroots",
   },
   description:

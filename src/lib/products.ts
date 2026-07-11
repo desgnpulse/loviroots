@@ -25,7 +25,7 @@ export type Product = {
   reviews: Review[];
 };
 
-// Static data — replaced by WPGraphQL queries in Step 4
+// Static data - replaced by WPGraphQL queries in Step 4
 export const PRODUCTS: Product[] = [
   {
     slug: "lovi-pure-shea-butter",
@@ -42,7 +42,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 42,
     benefits: [
-      "Deep moisturising — locks in hydration for 12+ hours",
+      "Deep moisturising - locks in hydration for 12+ hours",
       "Soothes dry, cracked, and irritated skin",
       "Fades stretch marks and uneven tone over time",
       "Seals moisture into natural and relaxed hair",

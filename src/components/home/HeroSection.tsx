@@ -27,13 +27,13 @@ export function HeroSection({ heroWaUrl, fromPrice }: Props) {
   return (
     <section className="lv-hero" aria-labelledby="lv-hero-title">
       <div className="lv-hero-copy">
-        <p className="lv-eyebrow">24.1&deg;C &mdash; Ambient &middot; Single-ingredient skincare &middot; Kenya</p>
+        <p className="lv-eyebrow">24.1&deg;C - Ambient &middot; Single-ingredient skincare &middot; Kenya</p>
         <h1 id="lv-hero-title" ref={h1Ref}>
           Solid at <span className="lv-num">24&deg;</span>.<br />
           <span className="lv-melt">Silk</span>{" "}at{" "}<span className="lv-num">37&deg;</span>.
         </h1>
         <p className="lv-lede">
-          Lovi is unrefined shea butter and nothing else &mdash; cold-pressed and sourced directly
+          Lovi is unrefined shea butter and nothing else - cold-pressed and sourced directly
           from West Africa, then delivered across Kenya. It stays firm in the jar and melts the
           moment it meets your skin.{" "}
           <strong>That&rsquo;s not a feature we added. It&rsquo;s the proof we didn&rsquo;t add
@@ -72,7 +72,7 @@ export function HeroSection({ heroWaUrl, fromPrice }: Props) {
           className="lv-badge"
           viewBox="0 0 120 120"
           role="img"
-          aria-label="Melts at skin temperature — one ingredient"
+          aria-label="Melts at skin temperature - one ingredient"
         >
           <circle className="lv-disc" cx="60" cy="60" r="58" />
           <g className="lv-spin">

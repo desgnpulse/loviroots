@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Decorative scroll-progress gauge — 23.6°C (top) → 37.5°C (bottom of page).
+ * Decorative scroll-progress gauge - 23.6°C (top) → 37.5°C (bottom of page).
  * Purely presentational (aria-hidden), homepage-only. Desktop only (hidden
  * under 64rem via .lv-temp-rail media query in globals.css).
  */

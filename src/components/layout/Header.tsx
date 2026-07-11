@@ -16,7 +16,7 @@ const NAV = [
 export function Header() {
   return (
     <header className="lv-header">
-      <Link href="/" className="lv-header-mark" aria-label="Lovi — home">
+      <Link href="/" className="lv-header-mark" aria-label="Lovi - home">
         Lovi <small>pure shea</small>
       </Link>
 
