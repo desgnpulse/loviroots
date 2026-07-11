@@ -42,7 +42,7 @@ export default async function HomePage() {
       {/* Real ordering mechanism: OrderSection calls the same
           singleItemWhatsAppUrl builder used by useWhatsAppOrder / the cart
           flow, driven by the real PRODUCTS sizes (100g/200g/500g) from
-          src/lib/products.ts — not the static design's placeholder
+          src/lib/products.ts - not the static design's placeholder
           250g/750/1300 figures. */}
       <OrderSection product={product} />
 

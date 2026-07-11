@@ -35,36 +35,61 @@ flag() {
   done
 
   local files
-  files=$(grep -rIl --include="*.md" --include="*.mdx" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
+  files=$(grep -rIl --include="*.md" --include="*.mdx" --include="*.json" --include="*.tsx" --include="*.ts" --include="*.jsx" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
   if [ -n "$files" ]; then
     red "FAIL: $desc"
-    grep -rIn --include="*.md" --include="*.mdx" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
+    grep -rIn --include="*.md" --include="*.mdx" --include="*.json" --include="*.tsx" --include="*.ts" --include="*.jsx" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
     ERRORS=$((ERRORS + 1))
   fi
 }
 
+# Same as flag(), but restricted to prose files (.md/.json) - for rules like
+# "no exclamation points" that are unusable against source code, where "!"
+# is legitimate TypeScript syntax (non-null assertions, negation).
+flag_prose() {
+  local desc="$1"; shift
+  local pattern="$1"; shift
+
+  local excludes=()
+  for d in "${EXCLUDE_DIRS[@]}"; do
+    excludes+=(--exclude-dir="$d")
+  done
+  for f in "${EXCLUDE_FILES[@]}"; do
+    excludes+=(--exclude="$f")
+  done
+
+  local files
+  files=$(grep -rIl --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
+  if [ -n "$files" ]; then
+    red "FAIL: $desc"
+    grep -rIn --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
+    ERRORS=$((ERRORS + 1))
+  fi
+}
+
+
 label "Punctuation"
-flag "Em dash found (rewrite the sentence)"       $'—'
-flag "Exclamation point found (remove it)"        '!'
+flag "Em dash found (rewrite the sentence)"       '—|&mdash;|&#8212;|&#x2014;'
+flag_prose "Exclamation point found (remove it)"  '!'
 
 label "Banned AI words"
-flag "'dive in' found"          '\bdive in\b'
-flag "'delve' found"            '\bdelve\b'
-flag "'leverage' found"         '\bleverage\b'
-flag "'seamless' found"         '\bseamless\b'
-flag "'unlock' found"           '\bunlock\b'
-flag "'robust' found"           '\brobust\b'
-flag "'streamline' found"       '\bstreamline\b'
-flag "'harness' found"          '\bharness\b'
-flag "'cutting-edge' found"     'cutting-edge'
-flag "'transformative' found"   '\btransformative\b'
-flag "'game-changer' found"     'game-changer|game changer'
-flag "'revolutionary' found"    '\brevolutionary\b'
+flag_prose "'dive in' found"          '\bdive in\b'
+flag_prose "'delve' found"            '\bdelve\b'
+flag_prose "'leverage' found"         '\bleverage\b'
+flag_prose "'seamless' found"         '\bseamless\b'
+flag_prose "'unlock' found"           '\bunlock\b'
+flag_prose "'robust' found"           '\brobust\b'
+flag_prose "'streamline' found"       '\bstreamline\b'
+flag_prose "'harness' found"          '\bharness\b'
+flag_prose "'cutting-edge' found"     'cutting-edge'
+flag_prose "'transformative' found"   '\btransformative\b'
+flag_prose "'game-changer' found"     'game-changer|game changer'
+flag_prose "'revolutionary' found"    '\brevolutionary\b'
 
 label "Banned phrases"
-flag "'utilize' found (use 'use')"        '\butilize\b'
-flag "'facilitate' found (use 'help')"    '\bfacilitate\b'
-flag "'initiate' found (use 'start')"     '\binitiate\b'
+flag_prose "'utilize' found (use 'use')"        '\butilize\b'
+flag_prose "'facilitate' found (use 'help')"    '\bfacilitate\b'
+flag_prose "'initiate' found (use 'start')"     '\binitiate\b'
 
 label "Credential safety"
 flag "Possible API key pattern found" '(sk-ant-|sk-[a-z]+-|AKIA|ghp_|ghs_)[A-Za-z0-9_-]{16,}'
@@ -86,7 +111,7 @@ def is_excluded(path):
     return os.path.basename(path) in EXCLUDE_FILES
 
 files = []
-if os.path.isfile(target):
+if os.path.isfile(target) and target.endswith(('.md', '.mdx')):
     if not is_excluded(target):
         files = [target]
 else:

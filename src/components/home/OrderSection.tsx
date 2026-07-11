@@ -19,7 +19,7 @@ type Props = {
 export function OrderSection({ product }: Props) {
   const [sizeIdx, setSizeIdx] = useState(0);
   const size = product.sizes[sizeIdx];
-  // Real ordering mechanism — the same wa.me URL builder used by
+  // Real ordering mechanism - the same wa.me URL builder used by
   // useWhatsAppOrder / the cart flow, not a bespoke deep link.
   const orderUrl = useMemo(
     () => singleItemWhatsAppUrl(product.name, size.label),
@@ -76,7 +76,7 @@ export function OrderSection({ product }: Props) {
             />
           </div>
           <div className="lv-order-copy">
-            <p className="lv-eyebrow">37.5&deg;C &mdash; Body temperature &middot; You&rsquo;re here</p>
+            <p className="lv-eyebrow">37.5&deg;C - Body temperature &middot; You&rsquo;re here</p>
             <h2 className="lv-h2" id="lv-order-title">
               {product.name}.
             </h2>

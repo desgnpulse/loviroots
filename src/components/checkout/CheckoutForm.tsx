@@ -136,7 +136,7 @@ export function CheckoutForm() {
         <div>
           <label className="block text-xs font-medium text-earth mb-1.5">
             Phone number
-            <span className="text-earth/40 font-normal ml-1">(M-Pesa — format: 2547XXXXXXXX)</span>
+            <span className="text-earth/40 font-normal ml-1">(M-Pesa - format: 2547XXXXXXXX)</span>
           </label>
           <input
             required

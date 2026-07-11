@@ -13,7 +13,7 @@ export function Footer() {
           <div>
             <p className="lv-footer-mark">Loviroots</p>
             <p className="lv-footer-tag">
-              Natural skincare rooted in African heritage. Registered as Loviroots &mdash; your
+              Natural skincare rooted in African heritage. Registered as Loviroots - your
               friends call us Lovi.
             </p>
           </div>
@@ -50,7 +50,7 @@ export function Footer() {
             <ul>
               <li>
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer">
-                  WhatsApp &mdash; fastest reply
+                  WhatsApp - fastest reply
                 </a>
               </li>
               <li>
