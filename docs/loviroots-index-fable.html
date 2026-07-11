@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lovi — Pure Shea Butter That Melts at Skin Temperature | Loviroots</title>
+<meta name="description" content="Lovi is 100% unrefined shea butter — one ingredient, cold-pressed, delivered across Kenya. Solid at 24°, silk at 37°. Order on WhatsApp." />
+
+<!--
+  LOVI HOMEPAGE PROTOTYPE — "BODY TEMPERATURE"
+  Standalone creative exploration. Not wired to the Next.js app.
+  WhatsApp number below is a PLACEHOLDER — production reads NEXT_PUBLIC_WHATSAPP_NUMBER from .env.
+  Prices are PLACEHOLDER values pending confirmation (100g/KES 350 matches current live copy).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Lovi Shea Butter",
+  "brand": { "@type": "Brand", "name": "Loviroots" },
+  "description": "100% unrefined shea butter. One ingredient: Butyrospermum parkii. Cold-pressed, no fragrance, no preservatives. Delivered across Kenya.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "KES",
+    "lowPrice": "350",
+    "highPrice": "1300",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   TOKENS — the palette is a temperature ramp.
+   Ivory (ambient) warms through sand and amber into cacao (body).
+   ============================================================ */
+:root{
+  --ivory:   #F8F4EC;
+  --sand:    #F1E7D3;
+  --parch:   #EBDDC2;
+  --amber:   #C97B3D;
+  --gold:    #D6AD60;
+  --earth:   #4A2E1F;
+  --cacao:   #211309;
+  --ink:     #191008;
+  --milk:    #F6EEDF;
+  --muted:   #6E5745;   /* body copy on light          */
+  --micro:   #7A614E;   /* small labels on light, ≥4.5 */
+  --muted-d: #CDB69C;   /* body copy on dark           */
+  --green:   #14603A;   /* WhatsApp primary            */
+  --green-h: #0E4A2C;
+
+  --font-disp: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  --pad: clamp(1.25rem, 4vw, 4rem);
+  --maxw: 82rem;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--font-body);
+  background:var(--ivory);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; }
+:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:2px; }
+
+::selection{ background:var(--gold); color:var(--ink); }
+
+/* Skip link */
+.skip{
+  position:absolute; left:1rem; top:-4rem; z-index:200;
+  background:var(--ink); color:var(--ivory);
+  padding:.6rem 1rem; font-size:.8rem; border-radius:0 0 4px 4px;
+  transition:top .2s ease; text-decoration:none;
+}
+.skip:focus{ top:0; }
+
+/* Film grain for tactility */
+.grain{
+  position:fixed; inset:0; z-index:90; pointer-events:none;
+  opacity:.045; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   TYPE HELPERS
+   ============================================================ */
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.66rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--micro);
+}
+.on-dark .eyebrow{ color:var(--gold); }
+.disp{ font-family:var(--font-disp); font-variation-settings:"SOFT" 60, "WONK" 0; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header.site{
+  position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem;
+  padding:.85rem var(--pad);
+  background:color-mix(in srgb, var(--ivory) 86%, transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease;
+}
+header.site.scrolled{ border-bottom-color:color-mix(in srgb, var(--earth) 14%, transparent); }
+
+.wordmark{
+  font-family:var(--font-disp);
+  font-weight:600; font-size:1.55rem; line-height:1;
+  font-variation-settings:"SOFT" 100, "WONK" 1, "opsz" 40;
+  text-decoration:none; letter-spacing:-.01em;
+  display:flex; align-items:baseline; gap:.45rem;
+}
+.wordmark small{
+  font-family:var(--font-mono); font-size:.55rem;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--micro);
+}
+nav.main{ display:flex; gap:2rem; }
+nav.main a{
+  text-decoration:none; font-size:.8rem; font-weight:500;
+  color:var(--muted); letter-spacing:.02em;
+  transition:color .2s ease;
+}
+nav.main a:hover{ color:var(--ink); }
+@media (max-width:52rem){
+  nav.main{ display:none; }
+  .wordmark small{ display:none; }
+}
+.head-right{ display:flex; align-items:center; gap:1.1rem; }
+.temp-sm{
+  font-family:var(--font-mono); font-size:.72rem; color:var(--amber);
+  min-width:3.2rem; text-align:right;
+}
+.wa-pill{
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:var(--green); color:#fff; text-decoration:none;
+  font-size:.72rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  padding:.6rem 1.05rem; border-radius:999px;
+  transition:background .2s ease;
+}
+.wa-pill:hover{ background:var(--green-h); }
+.wa-pill svg{ width:.9rem; height:.9rem; }
+
+/* ============================================================
+   TEMPERATURE RAIL — the signature object.
+   Fixed left; fills and warms as you scroll toward body temp.
+   ============================================================ */
+.temp-rail{
+  position:fixed; left:1.4rem; top:50%; transform:translateY(-50%);
+  z-index:80; display:flex; flex-direction:column; align-items:center; gap:.7rem;
+}
+.temp-rail .read{
+  font-family:var(--font-mono); font-size:.72rem; color:var(--amber);
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  letter-spacing:.08em;
+}
+.temp-rail .track{
+  width:3px; height:8.5rem; background:color-mix(in srgb, var(--earth) 15%, transparent);
+  border-radius:2px; position:relative; overflow:hidden;
+}
+.temp-rail .fill{
+  position:absolute; bottom:0; left:0; width:100%; height:2%;
+  background:linear-gradient(to top, var(--earth), var(--amber), var(--gold));
+  border-radius:2px;
+}
+.temp-rail .cap{
+  font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--micro);
+  writing-mode:vertical-rl; transform:rotate(180deg);
+}
+@media (max-width: 64rem){ .temp-rail{ display:none; } }
+
+/* ============================================================
+   HERO — 24.1° AMBIENT
+   ============================================================ */
+.hero{
+  display:grid; grid-template-columns:minmax(0,54fr) minmax(0,46fr);
+  min-height:calc(100svh - 3.6rem);
+}
+.hero-copy{
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:4rem var(--pad) 4.5rem calc(var(--pad) + 2.5rem);
+}
+@media (max-width:64rem){ .hero-copy{ padding-left:var(--pad); } }
+.hero-copy .eyebrow{ margin-bottom:1.6rem; }
+h1{
+  font-family:var(--font-disp);
+  font-weight:560;
+  font-size:clamp(3rem, 8.5vw, 7.2rem);
+  line-height:.98; letter-spacing:-.015em;
+  font-variation-settings:"opsz" 144, "SOFT" 0, "WONK" 0;
+  margin-bottom:1.8rem;
+  text-wrap:balance;
+}
+h1 .num{ font-family:var(--font-mono); font-weight:700; font-size:.62em; vertical-align:.09em; letter-spacing:-.04em; color:var(--amber); }
+h1 .melt{
+  font-style:italic; font-variation-settings:"opsz" 144, "SOFT" 0, "WONK" 1;
+  transition:font-variation-settings 2.2s cubic-bezier(.4,0,.2,1), color 2.2s ease;
+}
+h1.warmed .melt{
+  font-variation-settings:"opsz" 144, "SOFT" 100, "WONK" 1;
+  color:var(--amber);
+}
+.hero-copy p.lede{
+  color:var(--muted); max-width:26rem; font-size:.98rem; margin-bottom:2.3rem;
+}
+.cta-row{ display:flex; flex-wrap:wrap; align-items:center; gap:1.4rem; }
+.btn-wa{
+  display:inline-flex; align-items:center; justify-content:center; gap:.7rem;
+  background:var(--green); color:#fff; text-decoration:none;
+  font-size:.78rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  padding:1.15rem 2.1rem; border-radius:4px;
+  box-shadow:0 10px 28px -12px color-mix(in srgb, var(--green) 65%, transparent);
+  transition:background .2s ease, transform .2s ease;
+}
+.btn-wa:hover{ background:var(--green-h); transform:translateY(-1px); }
+.btn-wa svg{ width:1.05rem; height:1.05rem; flex:none; }
+.link-sub{
+  font-size:.78rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--micro); text-decoration:none; transition:color .2s ease;
+  padding:.6rem 0;
+}
+.link-sub:hover{ color:var(--ink); }
+.hero-price{
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--micro); margin-top:1.7rem;
+}
+
+.hero-media{ position:relative; overflow:hidden; min-height:22rem; }
+.hero-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* Rotating melting-point badge */
+.badge{
+  position:absolute; left:2.2rem; bottom:2.2rem; width:9.5rem; height:9.5rem;
+  z-index:5; pointer-events:none;
+  filter:drop-shadow(0 8px 20px rgba(20,10,4,.25));
+}
+@media (max-width:64rem){ .badge{ left:auto; right:1.1rem; bottom:1.1rem; width:7rem; height:7rem; } }
+.badge .spin{ animation:spin 26s linear infinite; transform-origin:50% 50%; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.badge .disc{ fill:var(--ivory); }
+.badge text{
+  font-family:var(--font-mono); font-size:8.2px; letter-spacing:2.6px;
+  fill:var(--earth); text-transform:uppercase;
+}
+.badge .core{ fill:var(--amber); }
+.badge .core-t{ fill:var(--ivory); font-size:11px; letter-spacing:0; font-weight:700; }
+
+@media (max-width:64rem){
+  .hero{ grid-template-columns:1fr; min-height:0; }
+  .hero-media{ order:-1; height:56vw; min-height:16rem; }
+  .hero-copy{ padding-top:4.6rem; padding-bottom:3.2rem; }
+  .btn-wa{ width:100%; }
+}
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+.ticker{
+  border-block:1px solid color-mix(in srgb, var(--earth) 16%, transparent);
+  background:var(--ivory);
+  overflow:hidden; white-space:nowrap;
+  padding:.9rem 0;
+}
+.ticker .lane{ display:inline-flex; animation:tick 42s linear infinite; }
+.ticker span{
+  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--micro); padding:0 1.6rem;
+}
+.ticker span::after{ content:"·"; color:var(--amber); margin-left:3.2rem; }
+@keyframes tick{ to{ transform:translateX(-50%); } }
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+section{ padding:clamp(4.5rem, 9vw, 8rem) var(--pad); }
+.shell{ max-width:var(--maxw); margin-inline:auto; }
+.sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:2rem; margin-bottom:clamp(2.5rem,5vw,4.5rem); flex-wrap:wrap; }
+.sec-temp{
+  font-family:var(--font-mono); font-size:.72rem; color:var(--amber);
+  letter-spacing:.1em; white-space:nowrap;
+}
+h2{
+  font-family:var(--font-disp); font-weight:560;
+  font-size:clamp(2.1rem, 4.6vw, 3.8rem); line-height:1.04; letter-spacing:-.01em;
+  font-variation-settings:"opsz" 100, "SOFT" 60;
+  text-wrap:balance;
+}
+h2 em{ font-variation-settings:"opsz" 100, "SOFT" 100, "WONK" 1; }
+
+/* Reveal on scroll */
+.reveal{ opacity:0; transform:translateY(1.6rem); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.6,.2,1); }
+.reveal.in{ opacity:1; transform:none; }
+.reveal:nth-child(2){ transition-delay:.08s; }
+.reveal:nth-child(3){ transition-delay:.16s; }
+
+/* ============================================================
+   STATES — the triptych. Ivory → gets warmer per card.
+   ============================================================ */
+#states{ background:var(--sand); }
+.states-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(1rem, 2.4vw, 2rem); }
+@media (max-width:52rem){ .states-grid{ grid-template-columns:1fr; } }
+.state{
+  background:var(--milk); border-radius:10px; overflow:hidden;
+  display:flex; flex-direction:column;
+  border:1px solid color-mix(in srgb, var(--earth) 10%, transparent);
+}
+.state:nth-child(2){ background:#F2E4CB; }
+.state:nth-child(3){ background:#EDD9B8; }
+.state figure{ aspect-ratio:4/3.4; overflow:hidden; }
+.state figure img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.2,.6,.2,1); }
+.state:hover figure img{ transform:scale(1.045); }
+.state .body{ padding:1.7rem 1.7rem 2rem; display:flex; flex-direction:column; gap:.65rem; flex:1; }
+.state .meta{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--micro);
+}
+.state .meta b{ color:var(--amber); font-weight:700; }
+.state h3{
+  font-family:var(--font-disp); font-weight:600; font-size:1.5rem;
+  font-variation-settings:"SOFT" 80; line-height:1.15;
+}
+.state p{ font-size:.9rem; color:var(--muted); }
+
+.states-note{
+  margin-top:clamp(2.2rem,4vw,3.4rem); text-align:center;
+}
+.states-note a{
+  font-size:.72rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--micro); text-decoration:none;
+}
+.states-note a:hover{ color:var(--ink); }
+
+/* ============================================================
+   INGREDIENT — the label, blown up to a manifesto.
+   ============================================================ */
+#ingredient{ background:var(--parch); }
+.inci{
+  font-family:var(--font-disp); font-style:italic; font-weight:480;
+  font-size:clamp(2.4rem, 6.6vw, 5.6rem); line-height:1.02; letter-spacing:-.01em;
+  font-variation-settings:"opsz" 144, "SOFT" 100, "WONK" 1;
+  margin:0 0 .8rem;
+  text-wrap:balance;
+}
+.inci-sub{ color:var(--muted); font-size:1rem; margin-bottom:clamp(2.6rem,5vw,4rem); }
+.label-card{
+  max-width:44rem; margin-inline:auto;
+  background:var(--ivory);
+  border:1.5px solid var(--earth);
+  border-radius:6px;
+  padding:clamp(1.4rem,3.5vw,2.4rem);
+  font-family:var(--font-mono);
+  box-shadow:0 24px 50px -30px color-mix(in srgb, var(--earth) 45%, transparent);
+}
+.label-card .lhead{
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  border-bottom:1.5px solid var(--earth); padding-bottom:.9rem; margin-bottom:.4rem;
+}
+.label-card .lhead b{ font-weight:700; }
+.label-card dl{ display:block; }
+.label-card .row{
+  display:flex; justify-content:space-between; gap:1.5rem; align-items:baseline;
+  padding:.85rem 0; border-bottom:1px dashed color-mix(in srgb, var(--earth) 30%, transparent);
+  font-size:.78rem;
+}
+.label-card .row:last-child{ border-bottom:none; }
+.label-card dt{ color:var(--micro); letter-spacing:.06em; text-transform:uppercase; font-size:.68rem; }
+.label-card dd{ text-align:right; color:var(--ink); }
+.label-card dd b{ color:var(--amber); }
+.label-card .lfoot{
+  margin-top:.6rem; padding-top:1rem; border-top:1.5px solid var(--earth);
+  font-size:.64rem; letter-spacing:.1em; color:var(--micro); text-transform:uppercase;
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+}
+
+/* ============================================================
+   ORDER — 37.5°, the warmest point on the page.
+   ============================================================ */
+#order{ background:var(--cacao); color:var(--milk); }
+#order .shell{ display:grid; grid-template-columns:minmax(0,44fr) minmax(0,56fr); gap:clamp(2.5rem,6vw,6rem); align-items:center; }
+@media (max-width:60rem){ #order .shell{ grid-template-columns:1fr; } }
+.order-media{ position:relative; }
+.order-media img{
+  width:100%; aspect-ratio:1/1.08; object-fit:cover; border-radius:10px;
+}
+.order-media::after{
+  content:""; position:absolute; inset:-.8rem; border:1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  border-radius:14px; pointer-events:none;
+}
+.order-copy h2{ color:var(--milk); margin:.9rem 0 1rem; }
+.order-copy .tagline{ color:var(--muted-d); font-size:.98rem; max-width:26rem; margin-bottom:2.2rem; }
+
+fieldset.sizes{ border:none; margin-bottom:2rem; }
+fieldset.sizes legend{
+  font-family:var(--font-mono); font-size:.64rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:1rem;
+}
+.size-row{ display:flex; gap:.7rem; flex-wrap:wrap; }
+.size-row input{ position:absolute; opacity:0; pointer-events:none; }
+.size-row label{
+  cursor:pointer; border:1px solid color-mix(in srgb, var(--milk) 30%, transparent);
+  border-radius:999px; padding:.7rem 1.35rem;
+  font-size:.82rem; font-weight:500; color:var(--muted-d);
+  transition:all .2s ease; user-select:none;
+}
+.size-row label:hover{ border-color:var(--gold); color:var(--milk); }
+.size-row input:checked + label{
+  background:var(--gold); border-color:var(--gold); color:var(--cacao); font-weight:600;
+}
+.size-row input:focus-visible + label{ outline:2px solid var(--gold); outline-offset:3px; }
+
+.price-line{
+  display:flex; align-items:baseline; gap:.8rem; margin-bottom:2rem;
+  font-family:var(--font-mono);
+}
+.price-line .kes{ font-size:1.9rem; font-weight:700; color:var(--milk); letter-spacing:-.02em; }
+.price-line .per{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-d); }
+
+.order-ctas{ display:flex; flex-direction:column; align-items:flex-start; gap:1.1rem; }
+.order-ctas .btn-wa{ width:100%; max-width:26rem; font-size:.82rem; padding:1.25rem 2rem; }
+.order-ctas .link-sub{ color:var(--muted-d); }
+.order-ctas .link-sub:hover{ color:var(--milk); }
+.order-fine{
+  margin-top:2.2rem; padding-top:1.4rem;
+  border-top:1px solid color-mix(in srgb, var(--milk) 14%, transparent);
+  font-size:.78rem; color:var(--muted-d); max-width:26rem;
+}
+.order-fine a{ color:var(--gold); text-decoration:none; }
+.order-fine a:hover{ text-decoration:underline; }
+.review-slot{
+  display:flex; align-items:center; gap:.7rem; margin-top:1rem;
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted-d);
+}
+.review-slot .stars{ color:color-mix(in srgb, var(--gold) 45%, transparent); letter-spacing:.2em; }
+
+/* ============================================================
+   STORY — full bleed
+   ============================================================ */
+#story{ padding:0; position:relative; min-height:min(88svh, 46rem); display:flex; align-items:flex-end; }
+#story img.bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+#story .scrim{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(20,10,4,.82) 0%, rgba(20,10,4,.28) 55%, rgba(20,10,4,.05) 100%);
+}
+#story .shell{ position:relative; z-index:2; width:100%; padding:clamp(3rem,7vw,6rem) 0; }
+#story blockquote{
+  font-family:var(--font-disp); font-weight:500;
+  font-size:clamp(1.8rem, 4.4vw, 3.6rem); line-height:1.14; letter-spacing:-.01em;
+  color:var(--ivory); max-width:34ch; text-wrap:balance;
+  font-variation-settings:"opsz" 100, "SOFT" 80;
+  margin-bottom:1.8rem;
+}
+#story blockquote em{ color:var(--gold); font-variation-settings:"opsz" 100, "SOFT" 100, "WONK" 1; }
+#story .link-sub{ color:color-mix(in srgb, var(--ivory) 75%, transparent); }
+#story .link-sub:hover{ color:var(--ivory); }
+
+/* ============================================================
+   JOURNAL
+   ============================================================ */
+#journal{ background:var(--ivory); }
+.j-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.4rem,3vw,2.6rem); }
+@media (max-width:52rem){ .j-grid{ grid-template-columns:1fr; } }
+.j-card{ text-decoration:none; display:flex; flex-direction:column; gap:1rem; }
+.j-card figure{ aspect-ratio:16/10.5; overflow:hidden; border-radius:8px; }
+.j-card figure img{ width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.2,.6,.2,1); filter:saturate(.94); }
+.j-card:hover figure img{ transform:scale(1.05); }
+.j-card .cat{
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--amber);
+}
+.j-card h3{
+  font-family:var(--font-disp); font-weight:560; font-size:1.42rem; line-height:1.2;
+  font-variation-settings:"SOFT" 70;
+  transition:color .2s ease;
+}
+.j-card:hover h3{ color:var(--amber); }
+.j-card p{ font-size:.88rem; color:var(--muted); }
+.j-card .rt{ font-family:var(--font-mono); font-size:.64rem; color:var(--micro); letter-spacing:.14em; text-transform:uppercase; }
+
+/* ============================================================
+   EMAIL CAPTURE
+   ============================================================ */
+#list{ background:var(--sand); border-top:1px solid color-mix(in srgb, var(--earth) 12%, transparent); }
+#list .shell{ max-width:44rem; text-align:center; }
+#list h2{ margin:.9rem 0 1rem; }
+#list .sub{ color:var(--muted); font-size:.95rem; max-width:32rem; margin:0 auto 2.4rem; }
+form.cap{ display:flex; gap:.7rem; max-width:30rem; margin-inline:auto; }
+@media (max-width:36rem){ form.cap{ flex-direction:column; } }
+form.cap input{
+  flex:1; font-family:var(--font-body); font-size:.95rem;
+  padding:1.05rem 1.2rem; border-radius:4px;
+  border:1.5px solid color-mix(in srgb, var(--earth) 35%, transparent);
+  background:var(--ivory); color:var(--ink);
+}
+form.cap input::placeholder{ color:var(--micro); }
+form.cap input:focus-visible{ outline:2px solid var(--amber); outline-offset:2px; border-color:var(--amber); }
+form.cap button{
+  font-family:var(--font-body); cursor:pointer;
+  background:var(--earth); color:var(--ivory); border:none; border-radius:4px;
+  font-size:.78rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  padding:1.05rem 1.8rem; transition:background .2s ease;
+}
+form.cap button:hover{ background:var(--cacao); }
+.cap-ok{
+  display:none; font-family:var(--font-mono); font-size:.85rem; color:var(--green);
+  padding:1.2rem; border:1px dashed var(--green); border-radius:6px; max-width:30rem; margin-inline:auto;
+}
+.cap-fine{ margin-top:1.2rem; font-size:.72rem; color:var(--micro); }
+
+/* ============================================================
+   FOOTER — Loviroots (legal name territory)
+   ============================================================ */
+footer.site{
+  background:var(--cacao); color:var(--muted-d);
+  padding:clamp(3.5rem,7vw,5.5rem) var(--pad) 2.4rem;
+}
+footer .shell{ max-width:var(--maxw); margin-inline:auto; }
+.f-top{ display:grid; grid-template-columns:2fr 1fr 1fr 1.4fr; gap:2.5rem; margin-bottom:3.5rem; }
+@media (max-width:56rem){ .f-top{ grid-template-columns:1fr 1fr; } }
+@media (max-width:36rem){ .f-top{ grid-template-columns:1fr; } }
+.f-mark{
+  font-family:var(--font-disp); font-weight:600; font-size:2.2rem; color:var(--ivory);
+  font-variation-settings:"SOFT" 100, "WONK" 1; line-height:1; margin-bottom:1rem;
+}
+.f-tag{ font-size:.85rem; max-width:20rem; }
+footer h4{
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:1.1rem; font-weight:400;
+}
+footer ul{ list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+footer ul a{ text-decoration:none; font-size:.85rem; color:var(--muted-d); transition:color .2s ease; }
+footer ul a:hover{ color:var(--ivory); }
+.f-bottom{
+  border-top:1px solid color-mix(in srgb, var(--milk) 12%, transparent);
+  padding-top:1.6rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:.72rem;
+}
+.f-bottom .legal{ font-family:var(--font-mono); letter-spacing:.06em; }
+
+/* ============================================================
+   STICKY MOBILE ORDER BAR
+   ============================================================ */
+.mob-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:110;
+  padding:.7rem .9rem calc(.7rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--ivory) 92%, transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid color-mix(in srgb, var(--earth) 15%, transparent);
+  transform:translateY(110%); transition:transform .35s cubic-bezier(.2,.6,.2,1);
+}
+.mob-bar.show{ transform:none; }
+.mob-bar .btn-wa{ width:100%; padding:1rem; font-size:.76rem; box-shadow:none; }
+@media (min-width:64rem){ .mob-bar{ display:none; } }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+  .reveal{ opacity:1; transform:none; }
+  h1 .melt{ font-variation-settings:"opsz" 144, "SOFT" 100, "WONK" 1; color:var(--amber); }
+  .ticker .lane{ animation:none !important; }
+  .badge .spin{ animation:none !important; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ── Header ─────────────────────────────────────────────── -->
+<header class="site" id="siteHead">
+  <a class="wordmark" href="/" aria-label="Lovi — home">
+    Lovi <small>pure shea</small>
+  </a>
+  <nav class="main" aria-label="Primary">
+    <a href="#order">The Butter</a>
+    <a href="#states">The Melt</a>
+    <a href="#journal">Journal</a>
+    <a href="#story">Story</a>
+  </nav>
+  <div class="head-right">
+    <span class="temp-sm" id="tempSm" aria-hidden="true">23.6°</span>
+    <!-- Same primary action as hero — a shortcut, not a competitor -->
+    <a class="wa-pill" href="https://wa.me/254700000000?text=Hi%20Lovi!%20I%27d%20like%20to%20order%20some%20shea%20butter.%20Please%20assist." target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- ── Temperature rail (decorative) ──────────────────────── -->
+<div class="temp-rail" aria-hidden="true">
+  <span class="read" id="tempRead">23.6°C</span>
+  <div class="track"><div class="fill" id="tempFill"></div></div>
+  <span class="cap">skin&nbsp;temp&nbsp;37°</span>
+</div>
+
+<main id="main">
+
+  <!-- ── HERO · 24.1° AMBIENT ─────────────────────────────── -->
+  <section class="hero" style="padding:0" aria-labelledby="heroTitle">
+    <div class="hero-copy">
+      <p class="eyebrow">24.1°C — Ambient · Single-ingredient skincare · Kenya</p>
+      <h1 id="heroTitle">Solid at <span class="num">24°</span>.<br /><span class="melt">Silk</span> at <span class="num">37°</span>.</h1>
+      <p class="lede">
+        Lovi is unrefined shea butter and nothing else — cold-pressed in West Africa,
+        packed in small batches in Kenya. It stays firm in the jar and melts the moment
+        it meets your skin. That's not a feature we added. It's the proof we didn't add anything.
+      </p>
+      <div class="cta-row">
+        <a class="btn-wa" id="heroCta" href="https://wa.me/254700000000?text=Hi%20Lovi!%20I%27d%20like%20to%20learn%20more%20about%20your%20shea%20butter.%20Please%20assist." target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </a>
+        <a class="link-sub" href="/products">Browse the shop →</a>
+      </div>
+      <p class="hero-price">From KES 350 · Delivered across Kenya</p>
+    </div>
+    <div class="hero-media">
+      <img src="../public/images/products/shea-hero.jpg"
+           alt="A jar of Lovi shea butter, whipped and ivory-gold, held in warm sunlight in a woman's hands"
+           width="1344" height="768" fetchpriority="high" />
+      <!-- Melting-point badge -->
+      <svg class="badge" viewBox="0 0 120 120" role="img" aria-label="Melts at skin temperature — one ingredient">
+        <circle class="disc" cx="60" cy="60" r="58" />
+        <g class="spin">
+          <defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+          <text><textPath href="#circ">MELTS AT SKIN TEMPERATURE&#160;&#160;•&#160;&#160;ONE INGREDIENT&#160;&#160;•&#160;&#160;</textPath></text>
+        </g>
+        <circle class="core" cx="60" cy="60" r="26" />
+        <text class="core-t" x="60" y="65" text-anchor="middle">37°</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── Ticker ───────────────────────────────────────────── -->
+  <div class="ticker" aria-hidden="true">
+    <div class="lane">
+      <span>100% unrefined</span><span>One ingredient</span><span>Cold-pressed</span><span>No added fragrance</span><span>No preservatives</span><span>Melts at skin temperature</span><span>Delivered across Kenya</span>
+      <span>100% unrefined</span><span>One ingredient</span><span>Cold-pressed</span><span>No added fragrance</span><span>No preservatives</span><span>Melts at skin temperature</span><span>Delivered across Kenya</span>
+    </div>
+  </div>
+
+  <!-- ── STATES · the melt ────────────────────────────────── -->
+  <section id="states" aria-labelledby="statesTitle">
+    <div class="shell">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow" style="margin-bottom:.9rem">The state change</p>
+          <h2 id="statesTitle">One butter.<br /><em>Three states.</em></h2>
+        </div>
+        <p class="sec-temp">28.4°C → RISING</p>
+      </div>
+
+      <div class="states-grid">
+        <article class="state reveal">
+          <figure><img src="../public/images/products/shea-butter.jpg" alt="Raw unrefined shea butter, firm and crumbly, heaped in a clear glass jar on linen" width="1024" height="1024" loading="lazy" /></figure>
+          <div class="body">
+            <p class="meta"><b>~24°</b><span>In the jar</span></p>
+            <h3>Solid</h3>
+            <p>Dense, ivory, faintly nutty. Unrefined shea is firm at room temperature — proof nothing was added to soften it artificially.</p>
+          </div>
+        </article>
+
+        <article class="state reveal">
+          <figure><img src="../public/images/products/shea-product.jpg" alt="An open jar of whipped shea butter on warm terracotta stone, surrounded by shea nuts and dried botanicals" width="928" height="1152" loading="lazy" /></figure>
+          <div class="body">
+            <p class="meta"><b>~32°</b><span>In your palm</span></p>
+            <h3>Melting</h3>
+            <p>Warm a pea-sized scoop between your hands. At skin temperature the butter gives way and turns to a slow, golden oil.</p>
+          </div>
+        </article>
+
+        <article class="state reveal">
+          <figure><img src="../public/images/products/skin.jpg" alt="Close-up of deep brown skin across a collarbone, smooth and softly lit" width="2560" height="1440" loading="lazy" /></figure>
+          <div class="body">
+            <p class="meta"><b>~37°</b><span>On your skin</span></p>
+            <h3>Sealed</h3>
+            <p>Press it in — don't rub. It sinks into the barrier and seals moisture where your skin needs it most.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="states-note"><a href="/how-to-use">Full usage guide →</a></p>
+    </div>
+  </section>
+
+  <!-- ── INGREDIENT · the label as manifesto ──────────────── -->
+  <section id="ingredient" aria-labelledby="inciTitle">
+    <div class="shell" style="text-align:center">
+      <p class="eyebrow" style="margin-bottom:1.4rem">The full ingredient list, in its entirety</p>
+      <h2 class="inci" id="inciTitle">Butyrospermum parkii.</h2>
+      <p class="inci-sub">That's shea butter. That's all of it.</p>
+
+      <div class="label-card reveal" role="group" aria-label="Product label details">
+        <p class="lhead"><b>LOVI SHEA BUTTER</b><span>INCI · 100%</span></p>
+        <dl>
+          <div class="row"><dt>Added fragrance</dt><dd><b>None</b> — the scent is the shea</dd></div>
+          <div class="row"><dt>Preservatives</dt><dd><b>None</b> — naturally shelf-stable</dd></div>
+          <div class="row"><dt>Bleaching / deodorising</dt><dd><b>Never</b> — ivory colour left as pressed</dd></div>
+          <div class="row"><dt>Origin</dt><dd>West Africa · cold-pressed</dd></div>
+          <div class="row"><dt>Packed</dt><dd>Small batches · Kenya</dd></div>
+        </dl>
+        <p class="lfoot"><span>Face · Body · Lips · Hair ends</span><span>Melts at skin temp</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORDER · 37.5° BODY — the page peaks here ─────────── -->
+  <section id="order" class="on-dark" aria-labelledby="orderTitle">
+    <div class="shell">
+      <div class="order-media reveal">
+        <img src="../public/images/blog/shea-benefits.jpg" alt="A glass jar of raw shea butter surrounded by whole and cracked shea nuts on natural linen" width="1024" height="1024" loading="lazy" />
+      </div>
+      <div class="order-copy">
+        <p class="eyebrow">37.5°C — Body temperature · You're here</p>
+        <h2 id="orderTitle">Lovi Shea Butter.</h2>
+        <p class="tagline">The whole routine in one jar — face, body, lips, hair ends. Pick a size and we'll take it from there, in the chat you already use every day.</p>
+
+        <fieldset class="sizes">
+          <legend>Choose a size</legend>
+          <div class="size-row">
+            <input type="radio" name="size" id="s100" value="100g" data-price="KES 350" checked />
+            <label for="s100">100g</label>
+            <input type="radio" name="size" id="s250" value="250g" data-price="KES 750" />
+            <label for="s250">250g</label>
+            <input type="radio" name="size" id="s500" value="500g" data-price="KES 1,300" />
+            <label for="s500">500g</label>
+          </div>
+        </fieldset>
+
+        <p class="price-line"><span class="kes" id="priceOut">KES 350</span><span class="per" id="sizeOut">/ 100g jar</span></p>
+
+        <div class="order-ctas">
+          <a class="btn-wa" id="orderCta" href="https://wa.me/254700000000?text=Hi%20Lovi!%20I%27d%20like%20to%20order%3A%20Lovi%20Shea%20Butter%20%E2%80%93%20100g.%20Please%20assist." target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order via WhatsApp
+          </a>
+          <a class="link-sub" href="/checkout">or checkout online →</a>
+        </div>
+
+        <div class="order-fine">
+          <p>We reply on WhatsApp with M-Pesa payment details, then pack and ship your jar. Prefer card or a paper trail? <a href="/checkout">Online checkout</a> takes M-Pesa and cards.</p>
+          <p class="review-slot"><span class="stars" aria-hidden="true">★★★★★</span> Reviews open with our first deliveries — be first</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STORY · full bleed ───────────────────────────────── -->
+  <section id="story" aria-labelledby="storyQuote">
+    <img class="bg" src="../public/images/blog/dark-skin-care.jpg" alt="A woman in a linen robe resting with a cup of tea, morning light on her arm" width="1376" height="768" loading="lazy" />
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="shell" style="padding-inline:var(--pad)">
+      <blockquote id="storyQuote">Shea has softened African skin for a thousand years. We didn't improve it. <em>We jarred it.</em></blockquote>
+      <a class="link-sub" href="/about">Read the Loviroots story →</a>
+    </div>
+  </section>
+
+  <!-- ── JOURNAL ──────────────────────────────────────────── -->
+  <section id="journal" aria-labelledby="journalTitle">
+    <div class="shell">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow" style="margin-bottom:.9rem">Skincare, read slowly</p>
+          <h2 id="journalTitle">The Journal.</h2>
+        </div>
+        <a class="link-sub" href="/blog">All entries →</a>
+      </div>
+
+      <div class="j-grid">
+        <a class="j-card reveal" href="/blog/how-to-read-an-ingredients-label">
+          <figure><img src="../public/images/blog/ingredients-label.jpg" alt="Amber apothecary bottles and paper tubes laid out on linen beside a bowl of dried botanicals" width="1376" height="768" loading="lazy" /></figure>
+          <p class="cat">Ingredients</p>
+          <h3>How to read an ingredients label — and when to put the jar back</h3>
+          <p>The first five ingredients tell you almost everything. Here's what "parfum," "mineral oil," and a 30-item list are really saying.</p>
+          <p class="rt">5 min read</p>
+        </a>
+
+        <a class="j-card reveal" href="/blog/the-elbow-test">
+          <figure><img src="../public/images/blog/skin-texture-elbow.jpg" alt="A resting elbow on natural linen, showing dry textured skin in soft daylight" width="1376" height="768" loading="lazy" /></figure>
+          <p class="cat">Routines</p>
+          <h3>The elbow test: what your driest patch says about your barrier</h3>
+          <p>Elbows, knees, and knuckles dry out first — which makes them the most honest place to check whether your moisturiser is working.</p>
+          <p class="rt">4 min read</p>
+        </a>
+
+        <a class="j-card reveal" href="/blog/shea-for-4c-hair">
+          <figure><img src="../public/images/blog/shea-hair.jpg" alt="Hands working product through coily 4C hair" width="1376" height="768" loading="lazy" /></figure>
+          <p class="cat">Hair</p>
+          <h3>Shea on 4C hair: sealing, not greasing</h3>
+          <p>Used right, shea locks moisture into your ends instead of sitting on top of them. The difference is order of operations.</p>
+          <p class="rt">6 min read</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EMAIL CAPTURE ────────────────────────────────────── -->
+  <section id="list" aria-labelledby="listTitle">
+    <div class="shell">
+      <p class="eyebrow">Small batches sell out</p>
+      <h2 id="listTitle">Be first to know.</h2>
+      <p class="sub">New batches, new sizes, and the occasional honest essay on skin. No noise — we're too small for that.</p>
+      <form class="cap" id="capForm" novalidate>
+        <label for="capEmail" class="eyebrow" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+        <input type="email" id="capEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+        <button type="submit">Join the Lovi list</button>
+      </form>
+      <p class="cap-ok" id="capOk" role="status">Karibu — you're on the list. Watch your inbox.</p>
+      <p class="cap-fine">One email when it matters. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site">
+  <div class="shell">
+    <div class="f-top">
+      <div>
+        <p class="f-mark">Loviroots</p>
+        <p class="f-tag">Natural skincare rooted in African heritage. Registered as Loviroots — your friends call us Lovi.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="/products">All products</a></li>
+          <li><a href="/how-to-use">How to use</a></li>
+          <li><a href="/cart">Cart</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Brand</h4>
+        <ul>
+          <li><a href="/about">About Loviroots</a></li>
+          <li><a href="/blog">Journal</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Talk to us</h4>
+        <ul>
+          <li><a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer">WhatsApp — fastest reply</a></li>
+          <li><a href="https://instagram.com/loviroots" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://tiktok.com/@loviroots" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p class="legal">© 2026 Loviroots · Nairobi, Kenya</p>
+      <p class="legal">Solid at 24° · Silk at 37°</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Sticky mobile order bar ────────────────────────────── -->
+<div class="mob-bar" id="mobBar">
+  <a class="btn-wa" id="mobCta" href="https://wa.me/254700000000?text=Hi%20Lovi!%20I%27d%20like%20to%20order%3A%20Lovi%20Shea%20Butter%20%E2%80%93%20100g.%20Please%20assist." target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1rem;height:1rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Order via WhatsApp · <span id="mobPrice">KES 350</span>
+  </a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // In production this comes from NEXT_PUBLIC_WHATSAPP_NUMBER — placeholder here.
+  var WA = "254700000000";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── Header border on scroll ─────────────────────────── */
+  var head = document.getElementById("siteHead");
+
+  /* ── Temperature gauge: 23.6° (top) → 37.5° (bottom) ─── */
+  var tempRead = document.getElementById("tempRead");
+  var tempSm   = document.getElementById("tempSm");
+  var tempFill = document.getElementById("tempFill");
+  var heroH1   = document.getElementById("heroTitle");
+  var ticking  = false;
+
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var t = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      var deg = (23.6 + t * (37.5 - 23.6)).toFixed(1);
+      if (tempRead) tempRead.textContent = deg + "°C";
+      if (tempSm)   tempSm.textContent   = deg + "°";
+      if (tempFill) tempFill.style.height = (2 + t * 98) + "%";
+      head.classList.toggle("scrolled", window.scrollY > 8);
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive:true });
+  onScroll();
+
+  /* ── Hero "Silk" softens shortly after load ──────────── */
+  if (!reduceMotion && heroH1){
+    setTimeout(function(){ heroH1.classList.add("warmed"); }, 900);
+  }
+
+  /* ── Reveal on scroll ────────────────────────────────── */
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold:.15 });
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ── Size selector → price + WhatsApp deep link ──────── */
+  var priceOut = document.getElementById("priceOut");
+  var sizeOut  = document.getElementById("sizeOut");
+  var orderCta = document.getElementById("orderCta");
+  var mobCta   = document.getElementById("mobCta");
+  var mobPrice = document.getElementById("mobPrice");
+
+  function waHref(size){
+    var msg = "Hi Lovi! I'd like to order: Lovi Shea Butter – " + size + ". Please assist.";
+    return "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
+  }
+
+  document.querySelectorAll('input[name="size"]').forEach(function(input){
+    input.addEventListener("change", function(){
+      var price = input.dataset.price;
+      var size  = input.value;
+      if (priceOut) priceOut.textContent = price;
+      if (sizeOut)  sizeOut.textContent  = "/ " + size + " jar";
+      if (mobPrice) mobPrice.textContent = price;
+      if (orderCta) orderCta.href = waHref(size);
+      if (mobCta)   mobCta.href   = waHref(size);
+    });
+  });
+
+  /* ── Sticky mobile bar: show once hero CTA scrolls away,
+        hide while the order section's own CTA is visible ── */
+  var mobBar   = document.getElementById("mobBar");
+  var heroCta  = document.getElementById("heroCta");
+  var pastHero = false, orderVisible = false;
+
+  function syncBar(){
+    mobBar.classList.toggle("show", pastHero && !orderVisible);
+  }
+  if ("IntersectionObserver" in window && heroCta && orderCta){
+    new IntersectionObserver(function(e){
+      pastHero = !e[0].isIntersecting && e[0].boundingClientRect.top < 0;
+      syncBar();
+    }, { threshold:0 }).observe(heroCta);
+    new IntersectionObserver(function(e){
+      orderVisible = e[0].isIntersecting;
+      syncBar();
+    }, { threshold:.1 }).observe(orderCta);
+  }
+
+  /* ── Email capture (prototype: local success state) ──── */
+  var form = document.getElementById("capForm");
+  var ok   = document.getElementById("capOk");
+  var mail = document.getElementById("capEmail");
+  if (form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      if (!mail.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value)){
+        mail.focus();
+        mail.setAttribute("aria-invalid", "true");
+        return;
+      }
+      mail.removeAttribute("aria-invalid");
+      form.style.display = "none";
+      ok.style.display = "block";
+    });
+  }
+})();
+</script>
+</body>
+</html>

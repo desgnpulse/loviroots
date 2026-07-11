@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/wp/blog";
 import { RelatedArticles } from "@/components/blog/RelatedArticles";
+import { AuthorByline } from "@/components/blog/AuthorByline";
 import linkGraph from "@/data/link-graph.json";
 
 export const revalidate = 60;
@@ -68,6 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="text-xs text-earth/40">
             {post.date} · {post.readTime}
           </p>
+          {post.author && <AuthorByline authorSlug={post.author} />}
         </div>
       </div>
 

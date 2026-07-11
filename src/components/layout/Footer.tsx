@@ -1,33 +1,68 @@
 import Link from "next/link";
 
-const NAV = [
-  { label: "Shop", href: "/products" },
-  { label: "Journal", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
+const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+  "Hi Lovi! I have a question about your products."
+)}`;
 
 export function Footer() {
   return (
-    <footer className="bg-ivory border-t border-earth/10 px-4 py-6">
-      <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-5">
-        <p className="font-display text-lg font-bold text-ink">Lovi</p>
-
-        <nav className="flex items-center gap-7">
-          {NAV.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="text-[10px] font-semibold uppercase tracking-[0.2em] text-earth/40 hover:text-earth transition-colors"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-earth/25">
-          © {new Date().getFullYear()} Loviroots. Nairobi, KE.
-        </p>
+    <footer className="lv-footer">
+      <div className="lv-footer-shell">
+        <div className="lv-footer-top">
+          <div>
+            <p className="lv-footer-mark">Loviroots</p>
+            <p className="lv-footer-tag">
+              Natural skincare rooted in African heritage. Registered as Loviroots &mdash; your
+              friends call us Lovi.
+            </p>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <ul>
+              <li>
+                <Link href="/products">All products</Link>
+              </li>
+              <li>
+                <Link href="/how-to-use">How to use</Link>
+              </li>
+              <li>
+                <Link href="/cart">Cart</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Brand</h4>
+            <ul>
+              <li>
+                <Link href="/about">About Loviroots</Link>
+              </li>
+              <li>
+                <Link href="/blog">Journal</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Talk to us</h4>
+            <ul>
+              <li>
+                <a href={WA_URL} target="_blank" rel="noopener noreferrer">
+                  WhatsApp &mdash; fastest reply
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hello@loviroots.com">hello@loviroots.com</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="lv-footer-bottom">
+          <p className="lv-legal">&copy; {new Date().getFullYear()} Loviroots &middot; Nairobi, Kenya</p>
+          <p className="lv-legal">Solid at 24&deg; &middot; Silk at 37&deg;</p>
+        </div>
       </div>
     </footer>
   );

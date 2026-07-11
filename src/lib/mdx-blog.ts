@@ -45,6 +45,7 @@ export async function getMdxPost(slug: string): Promise<BlogPost | undefined> {
     readTime: `${Math.max(1, Math.ceil(wordCount(content) / 200))} min read`,
     category: data.category ?? "Blog",
     content: html,
+    ...(data.author ? { author: String(data.author) } : {}),
   };
 }
 

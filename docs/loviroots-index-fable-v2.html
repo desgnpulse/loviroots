@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<!--
+  Lovi — homepage exploration, round two: "The Family Formulary"
+  Self-contained prototype. Open directly in a browser; images resolve to ../public/images/.
+
+  PRODUCTION NOTES
+  - WhatsApp number below is a placeholder (254700000000). In the Next.js port it must
+    come from NEXT_PUBLIC_WHATSAPP_NUMBER — never hardcoded.
+  - Prices: 100g / KES 350 is corroborated by the live site. 250g (KES 750) and
+    500g (KES 1,300) are PLACEHOLDERS — confirm before porting.
+  - Brand naming: "Loviroots" in legal/about/footer contexts, "Lovi" everywhere
+    customer-facing. The retired name is never used.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#F7F1E5" />
+<title>Lovi — Natural Skincare, by Family Recipe | Loviroots</title>
+<meta name="description" content="Lovi makes natural skincare from shea butter, aloe vera, coconut oil, herbs and essential oils — blended to recipes handed down through our family. Delivered across Kenya." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ————————————————————————————————— tokens ————————————————————————————————— */
+  :root{
+    --paper:      #F7F1E5;   /* the page */
+    --paper-deep: #EFE6D2;   /* cards, plates */
+    --cream:      #FDFBF4;   /* button text, bright surfaces */
+    --ink:        #2B2118;   /* warm reading ink */
+    --ink-soft:   #5D4C3B;   /* secondary ink */
+    --line:       rgba(43,33,24,.16);
+    --line-firm:  rgba(43,33,24,.38);
+    --moss:       #47663F;   /* botanical drawings */
+    --ochre:      #A0431F;   /* the stamp, ink annotations */
+    --gold:       #B98F3E;   /* gilt rules, fleurons — ornament only, never text */
+    --wa:         #0B6B45;   /* WhatsApp primary */
+    --wa-deep:    #084F33;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Newsreader', Georgia, serif;
+    --font-hand:    'Caveat', cursive;
+    --font-ui:      'Inter', system-ui, sans-serif;
+
+    --measure: 34em;
+  }
+
+  /* ————————————————————————————————— base ————————————————————————————————— */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:1.0625rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  /* paper grain — one tiny tiled SVG, fixed behind everything */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.045'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  main, header.masthead, footer{ position:relative; z-index:1; }
+
+  ::selection{ background:var(--ink); color:var(--paper); }
+
+  img{ max-width:100%; height:auto; display:block; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family:var(--font-display); font-weight:600; line-height:1.06; margin:0; }
+  p{ margin:0 0 1.1em; }
+
+  :focus-visible{ outline:2px solid var(--ink); outline-offset:3px; border-radius:2px; }
+  .btn-wa:focus-visible{ outline-color:var(--wa-deep); }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  .skip{
+    position:absolute; left:1rem; top:-3rem; z-index:60;
+    background:var(--ink); color:var(--paper); padding:.6rem 1rem;
+    font-family:var(--font-ui); font-size:.8rem; text-decoration:none;
+    transition:top .2s;
+  }
+  .skip:focus{ top:1rem; }
+
+  .wrap{ width:min(72rem, 100% - 3rem); margin-inline:auto; }
+  @media (max-width:640px){ .wrap{ width:min(72rem, 100% - 2.5rem);} }
+
+  section{ scroll-margin-top:2rem; }
+
+  /* ————————————————————————————————— type voices ————————————————————————————— */
+  .smallcaps{
+    font-family:var(--font-ui); font-size:.6875rem; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .hand{
+    font-family:var(--font-hand); font-weight:500;
+    font-size:1.35rem; line-height:1.3; color:var(--ink-soft);
+  }
+  .hand--ochre{ color:var(--ochre); }
+
+  /* ————————————————————————————————— buttons ————————————————————————————————— */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.65rem;
+    font-family:var(--font-ui); font-size:.72rem; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; text-decoration:none;
+    padding:1.05rem 1.9rem; border-radius:3px; border:1px solid transparent;
+    transition:background-color .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .btn-wa{ background:var(--wa); color:var(--cream); }
+  .btn-wa:hover{ background:var(--wa-deep); }
+  .btn-wa svg{ width:1rem; height:1rem; flex:none; }
+  .btn-ink{ background:var(--ink); color:var(--cream); cursor:pointer; }
+  .btn-ink:hover{ background:#40311f; }
+
+  .link-quiet{
+    font-family:var(--font-ui); font-size:.7rem; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);
+    text-decoration:none; border-bottom:1px solid var(--line-firm);
+    padding-bottom:.2rem; transition:color .18s, border-color .18s;
+  }
+  .link-quiet:hover{ color:var(--ink); border-color:var(--ink); }
+
+  /* ————————————————————————————————— masthead ————————————————————————————————— */
+  header.masthead{
+    border-bottom:1px solid var(--line);
+    box-shadow:0 3px 0 -2px var(--line); /* fine double-rule, ledger style */
+  }
+  .masthead-inner{
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding:1.4rem 0 1.15rem;
+  }
+  .wordmark{
+    font-family:var(--font-display); font-weight:700; font-size:1.7rem;
+    letter-spacing:.02em; text-decoration:none; line-height:1;
+  }
+  .wordmark small{
+    display:block; font-family:var(--font-ui); font-weight:600; font-size:.55rem;
+    letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); margin-top:.3rem;
+  }
+  .masthead nav{ display:flex; gap:2rem; align-items:baseline; }
+  .masthead nav a{
+    font-family:var(--font-ui); font-size:.7rem; font-weight:600;
+    letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft);
+    text-decoration:none;
+  }
+  .masthead nav a:hover{ color:var(--ink); }
+  .masthead nav .nav-order{ color:var(--ochre); }
+  @media (max-width:760px){
+    .masthead nav a:not(.nav-order){ display:none; }
+  }
+
+  /* ————————————————————————————————— chapter dividers ————————————————————————— */
+  .chapter{
+    display:flex; align-items:center; gap:1.25rem;
+    margin:0 0 3rem;
+  }
+  .chapter::before, .chapter::after{
+    content:""; flex:1; height:1px; background:var(--line);
+  }
+  .chapter span{
+    font-family:var(--font-ui); font-size:.65rem; font-weight:600;
+    letter-spacing:.26em; text-transform:uppercase; color:var(--ink-soft);
+    display:flex; align-items:center; gap:.9rem; white-space:nowrap;
+  }
+  .chapter .fleuron{ color:var(--gold); font-size:1rem; letter-spacing:0; }
+
+  /* ————————————————————————————————— tipped-in photographs ————————————————————— */
+  .tipped{ margin:0; position:relative; }
+  .tipped .ph{
+    position:relative; background:var(--cream);
+    padding:.55rem; border:1px solid var(--line);
+    box-shadow:0 14px 30px -18px rgba(43,33,24,.45), 0 2px 6px rgba(43,33,24,.08);
+  }
+  .tipped .ph img{ width:100%; }
+  /* tape strips */
+  .tipped .ph::before, .tipped .ph::after{
+    content:""; position:absolute; width:5.2rem; height:1.55rem; top:-.8rem;
+    background:rgba(214,196,150,.55);
+    border-left:1px dashed rgba(43,33,24,.12);
+    border-right:1px dashed rgba(43,33,24,.12);
+    box-shadow:0 1px 2px rgba(43,33,24,.08);
+  }
+  .tipped .ph::before{ left:-1.4rem; transform:rotate(-42deg); }
+  .tipped .ph::after{ right:-1.4rem; transform:rotate(42deg); }
+  .tipped figcaption{
+    font-family:var(--font-hand); font-size:1.3rem; color:var(--ink-soft);
+    margin-top:.9rem; text-align:center; transform:rotate(-1deg);
+  }
+  .tilt-l{ transform:rotate(-1.4deg); }
+  .tilt-r{ transform:rotate(1.1deg); }
+  @media (prefers-reduced-motion: no-preference){
+    .tilt-l, .tilt-r{ transition:transform .5s ease; }
+    .tilt-l:hover, .tilt-r:hover{ transform:rotate(0deg); }
+  }
+
+  /* ————————————————————————————————— frontispiece / hero ————————————————————— */
+  .hero{ padding:4.5rem 0 6rem; position:relative; }
+  .hero-grid{
+    display:grid; grid-template-columns: 7fr 5fr; gap:5rem; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.9rem, 6.6vw, 5.2rem);
+    font-weight:600; letter-spacing:-.01em; margin:1.4rem 0 1.8rem;
+  }
+  .hero h1 em{ font-style:italic; font-weight:500; }
+  .annotated{ position:relative; white-space:nowrap; }
+  .annotated svg{
+    position:absolute; left:-1%; right:-1%; width:102%; height:.42em;
+    bottom:-.18em; overflow:visible; color:var(--ochre);
+  }
+  .hero .lede{
+    max-width:var(--measure); color:var(--ink-soft);
+    font-size:1.125rem;
+  }
+  .hero-cta{ display:flex; align-items:center; gap:1.8rem; flex-wrap:wrap; margin-top:2.2rem; }
+  .hero-meta{
+    margin-top:1.6rem; font-family:var(--font-ui); font-size:.68rem;
+    font-weight:500; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero-note{
+    position:absolute; top:.4rem; right:1.5rem; transform:rotate(2deg);
+  }
+  @media (max-width:900px){
+    .hero{ padding:3rem 0 4.5rem; }
+    .hero-grid{ grid-template-columns:1fr; gap:3.2rem; }
+    .hero-note{ display:none; }
+    .hero .tipped{ max-width:26rem; }
+  }
+  @media (max-width:640px){
+    .hero h1{ font-size:clamp(2.55rem, 11.5vw, 3.4rem); }
+    .hero-cta .btn{ width:100%; }
+  }
+
+  /* the stamp — inked over the photo's lower-right corner, clear of the caption */
+  .stamp{
+    position:absolute; width:10.5rem; right:-1.8rem; bottom:3.6rem;
+    transform:rotate(-9deg); color:var(--ochre); opacity:.9; pointer-events:none;
+  }
+  @media (max-width:900px){ .stamp{ width:8.5rem; right:-0.9rem; bottom:3.2rem; } }
+
+  /* ————————————————————————————————— chapter I · specimens ————————————————————— */
+  .specimens{ padding:5rem 0 6.5rem; border-top:1px solid var(--line); }
+  .spec-intro{ max-width:44rem; margin:0 auto 4rem; text-align:center; }
+  .spec-intro h2{ font-size:clamp(2.2rem, 4.6vw, 3.4rem); margin:.4rem 0 1.2rem; }
+  .spec-intro p{ color:var(--ink-soft); }
+  .spec-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); gap:1.4rem;
+  }
+  .spec{
+    grid-column:span 2;
+    background:var(--paper-deep); border:1px solid var(--line);
+    padding:1.8rem 1.7rem 1.9rem; position:relative;
+  }
+  .spec:nth-child(4){ grid-column:2 / span 2; }
+  .spec:nth-child(5){ grid-column:4 / span 2; }
+  .spec-no{
+    position:absolute; top:1.3rem; right:1.5rem;
+    font-family:var(--font-ui); font-size:.62rem; font-weight:600;
+    letter-spacing:.2em; color:var(--ink-soft);
+  }
+  .spec-art{ height:7.5rem; display:flex; align-items:flex-end; margin-bottom:1.4rem; color:var(--moss); }
+  .spec-art svg{ height:100%; width:auto; max-width:100%; }
+  .spec h3{ font-size:1.55rem; font-weight:600; }
+  .spec .latin{
+    font-family:var(--font-body); font-style:italic; font-size:.9rem;
+    color:var(--ink-soft); margin:.15rem 0 .9rem;
+  }
+  .spec .role{
+    display:inline-block; font-family:var(--font-ui); font-size:.62rem;
+    font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ochre); border:1px solid rgba(160,67,31,.35);
+    border-radius:999px; padding:.32rem .75rem; margin-bottom:1rem;
+  }
+  .spec p{ font-size:.95rem; color:var(--ink-soft); margin:0; }
+  .spec-foot{
+    margin-top:2.6rem; text-align:center; color:var(--ink-soft);
+    font-style:italic; font-size:1rem;
+  }
+  @media (max-width:900px){
+    .spec-grid{ grid-template-columns:1fr 1fr; gap:1.1rem; }
+    .spec, .spec:nth-child(4), .spec:nth-child(5){ grid-column:auto; }
+    .spec:last-child{ grid-column:1 / -1; }
+  }
+  @media (max-width:560px){
+    .specimens{ padding:4rem 0 5rem; }
+    .spec-grid{ grid-template-columns:1fr; }
+    .spec, .spec:last-child{ grid-column:auto; display:grid; grid-template-columns:5.2rem 1fr; column-gap:1.3rem; padding:1.5rem 1.3rem; }
+    .spec-art{ height:auto; align-items:flex-start; margin:0; grid-row:1 / span 4; }
+    .spec-art svg{ width:100%; height:auto; }
+  }
+
+  /* ————————————————————————————————— chapter II · the recipe ——————————————————— */
+  .recipe{ padding:5rem 0 6.5rem; border-top:1px solid var(--line); }
+  .recipe-card{
+    background:var(--paper-deep);
+    border:1px solid var(--line-firm);
+    outline:1px solid var(--line);
+    outline-offset:5px;
+    padding:clamp(1.6rem, 4vw, 3.4rem);
+    display:grid; grid-template-columns: 5fr 7fr; gap:clamp(2rem, 4.5vw, 4.5rem);
+    align-items:center; position:relative;
+  }
+  .recipe-card .tipped{ margin-top:.5rem; }
+  .recipe-head .smallcaps{ color:var(--ochre); }
+  .recipe-card h2{ font-size:clamp(2.3rem, 4.4vw, 3.4rem); margin:.55rem 0 1rem; }
+  .recipe-desc{ color:var(--ink-soft); max-width:32em; }
+
+  .to-use{ margin:1.7rem 0 .4rem; border-top:1px solid var(--line); padding-top:1.35rem; }
+  .to-use ol{
+    list-style:none; margin:.75rem 0 0; padding:0;
+    display:flex; flex-wrap:wrap; gap:.4rem 1.9rem;
+  }
+  .to-use li{
+    font-size:.95rem; color:var(--ink-soft); display:flex; gap:.55rem; align-items:baseline;
+  }
+  .to-use li b{
+    font-family:var(--font-display); font-weight:600; font-style:italic;
+    color:var(--ink); font-size:1.05rem;
+  }
+
+  /* size ledger */
+  .sizes{ border:0; margin:1.9rem 0 0; padding:0; }
+  .sizes legend{ padding:0; margin-bottom:.4rem; }
+  .size-row{
+    display:flex; align-items:baseline; gap:1rem; cursor:pointer;
+    padding:.85rem .2rem; border-bottom:1px dotted var(--line-firm);
+    position:relative;
+  }
+  .size-row input{ position:absolute; opacity:0; pointer-events:none; }
+  .size-name{
+    font-family:var(--font-display); font-size:1.35rem; font-weight:600;
+    position:relative; padding:0 .55rem; margin-left:-.55rem;
+  }
+  .size-name svg{
+    position:absolute; inset:-38% -8%; width:116%; height:176%;
+    color:var(--ochre); overflow:visible; pointer-events:none;
+    opacity:0; /* hidden until chosen — also kills round-cap dash dots */
+  }
+  .size-name svg path{
+    stroke-dasharray:1; stroke-dashoffset:1;
+  }
+  .size-row input:checked ~ .size-name svg{ opacity:1; }
+  .size-row input:checked ~ .size-name svg path{ stroke-dashoffset:0; }
+  @media (prefers-reduced-motion: no-preference){
+    .size-name svg path{ transition:stroke-dashoffset .55s ease .05s; }
+  }
+  .size-fill{ flex:1; border-bottom:1px dotted var(--line); transform:translateY(-.35em); }
+  .size-price{ font-family:var(--font-ui); font-size:.8rem; font-weight:600; letter-spacing:.06em; color:var(--ink-soft); }
+  .size-row input:checked ~ .size-price{ color:var(--ink); }
+  .size-row:has(input:focus-visible) .size-name{ outline:2px solid var(--ink); outline-offset:3px; }
+
+  .recipe-note{ margin:1.15rem 0 0; transform:rotate(-1.2deg); }
+
+  .order-cta{ margin-top:2rem; }
+  .order-cta .btn{ width:100%; white-space:nowrap; }
+  @media (max-width:430px){
+    .order-cta .btn{ font-size:.66rem; letter-spacing:.09em; padding-inline:.9rem; gap:.45rem; }
+  }
+  .order-alt{
+    margin-top:1.05rem; text-align:center;
+    font-family:var(--font-ui); font-size:.68rem; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+  .order-alt a{ color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; }
+  .order-alt a:hover{ color:var(--ink); }
+  .order-fine{
+    margin-top:1.3rem; text-align:center; font-size:.85rem; font-style:italic;
+    color:var(--ink-soft);
+  }
+  .recipe-foot{
+    text-align:center; margin-top:3rem; color:var(--ink-soft); font-style:italic;
+  }
+  .recipe-foot a{ font-style:normal; margin-left:.6rem; }
+  @media (max-width:900px){
+    .recipe{ padding:4rem 0 5rem; }
+    .recipe-card{ grid-template-columns:1fr; }
+    .recipe-card .tipped{ max-width:22rem; margin-inline:auto; }
+  }
+
+  /* ————————————————————————————————— chapter III · the hands ————————————————— */
+  .story{ padding:5rem 0 6.5rem; border-top:1px solid var(--line); }
+  .story-grid{
+    display:grid; grid-template-columns:6fr 6fr; gap:clamp(2.5rem, 5vw, 5.5rem);
+    align-items:center;
+  }
+  .story h2{ font-size:clamp(2.3rem, 4.6vw, 3.5rem); margin:.5rem 0 1.4rem; }
+  .story p{ color:var(--ink-soft); max-width:var(--measure); }
+  .story .dropcap::first-letter{
+    font-family:var(--font-display); font-weight:600; float:left;
+    font-size:3.4em; line-height:.82; padding:.06em .12em 0 0; color:var(--ink);
+  }
+  .story-cta{ margin-top:2rem; }
+  @media (max-width:900px){
+    .story{ padding:4rem 0 5rem; }
+    .story-grid{ grid-template-columns:1fr; }
+    .story .tipped{ max-width:28rem; }
+  }
+
+  /* ————————————————————————————————— chapter IV · margins ————————————————————— */
+  .journal{ padding:5rem 0 6.5rem; border-top:1px solid var(--line); }
+  .journal-head{ display:flex; align-items:baseline; justify-content:space-between; gap:2rem; margin-bottom:3rem; }
+  .journal-head h2{ font-size:clamp(2.2rem, 4.4vw, 3.3rem); margin-top:.5rem; }
+  .journal-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
+  .card{
+    display:block; text-decoration:none; background:var(--cream);
+    border:1px solid var(--line); padding:.65rem .65rem 1.6rem;
+    box-shadow:0 12px 26px -20px rgba(43,33,24,.5);
+    /* faint ruled lines, index-card style */
+    background-image:repeating-linear-gradient(to bottom, transparent 0 27px, rgba(43,33,24,.05) 27px 28px);
+  }
+  .card:nth-child(1){ transform:rotate(-.5deg); }
+  .card:nth-child(3){ transform:rotate(.45deg); }
+  .card img{ width:100%; aspect-ratio:16/10; object-fit:cover; }
+  .card-body{ padding:1.3rem .9rem 0; }
+  .card .smallcaps{ font-size:.6rem; color:var(--ochre); }
+  .card h3{
+    font-size:1.5rem; font-weight:600; font-style:italic; line-height:1.15;
+    margin:.6rem 0 .7rem;
+  }
+  .card p{ font-size:.92rem; color:var(--ink-soft); margin:0; }
+  .card:hover h3{ text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
+  .journal-foot{ display:none; text-align:center; margin-top:2.4rem; }
+  @media (max-width:900px){
+    .journal{ padding:4rem 0 5rem; }
+    .journal-grid{ grid-template-columns:1fr; gap:1.4rem; }
+    .card{ transform:none !important; display:grid; grid-template-columns:7.6rem 1fr; gap:0 .4rem; padding:.6rem; }
+    .card img{ aspect-ratio:1/1; height:100%; }
+    .card-body{ padding:.4rem .7rem .5rem; }
+    .card h3{ font-size:1.25rem; margin:.35rem 0 .45rem; }
+    .card p{ font-size:.85rem; }
+    .journal-head .link-quiet{ display:none; }
+    .journal-foot{ display:block; }
+  }
+
+  /* ————————————————————————————————— chapter V · the list ————————————————————— */
+  .list{ padding:5.5rem 0 7rem; border-top:1px solid var(--line); text-align:center; }
+  .list h2{ font-size:clamp(2.3rem, 4.8vw, 3.6rem); margin:.5rem 0 1.1rem; }
+  .list > .wrap > p{ color:var(--ink-soft); max-width:34rem; margin-inline:auto; }
+  .list form{
+    display:flex; gap:1rem; max-width:30rem; margin:2.4rem auto 0; align-items:stretch;
+  }
+  .list input[type="email"]{
+    flex:1; min-width:0; background:transparent; border:0;
+    border-bottom:1px solid var(--line-firm);
+    font-family:var(--font-body); font-style:italic; font-size:1.05rem; color:var(--ink);
+    padding:.7rem .2rem;
+  }
+  .list input[type="email"]::placeholder{ color:var(--ink-soft); opacity:.75; }
+  .list input[type="email"]:focus-visible{ outline:none; border-bottom-color:var(--ink); }
+  .list button{ cursor:pointer; border:0; }
+  .list .fine{ margin-top:1.3rem; font-size:.85rem; font-style:italic; color:var(--ink-soft); }
+  @media (max-width:560px){
+    .list form{ flex-direction:column; gap:1.4rem; }
+  }
+
+  /* ————————————————————————————————— colophon / footer ————————————————————————— */
+  footer{
+    border-top:1px solid var(--line-firm);
+    box-shadow:0 -4px 0 -3px var(--line);
+    padding:3.5rem 0 8rem;
+  }
+  .foot-grid{ display:flex; justify-content:space-between; gap:3rem; flex-wrap:wrap; }
+  .foot-brand p{ max-width:21rem; font-size:.92rem; color:var(--ink-soft); margin-top:1rem; }
+  .foot-cols{ display:flex; gap:4rem; flex-wrap:wrap; }
+  .foot-col ul{ list-style:none; margin:1.1rem 0 0; padding:0; display:grid; gap:.65rem; }
+  .foot-col a{
+    text-decoration:none; font-size:.95rem; color:var(--ink-soft);
+  }
+  .foot-col a:hover{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+  .colophon{
+    margin-top:3.5rem; padding-top:1.6rem; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    font-family:var(--font-ui); font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+  @media (min-width:900px){ footer{ padding-bottom:4rem; } }
+
+  /* ————————————————————————————————— sticky order bar (mobile) ————————————————— */
+  .orderbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    background:var(--cream); border-top:1px solid var(--line-firm);
+    box-shadow:0 -10px 30px rgba(43,33,24,.14);
+    padding:.8rem 1.1rem calc(.8rem + env(safe-area-inset-bottom));
+    display:flex; align-items:center; gap:1rem;
+    transform:translateY(calc(100% + 2.5rem)); /* clears the bookmark ribbon too */
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .orderbar{ transition:transform .35s ease; }
+  }
+  .orderbar.show{ transform:translateY(0); }
+  .orderbar::before{ /* bookmark ribbon */
+    content:""; position:absolute; top:-1.15rem; right:1.4rem;
+    width:1.5rem; height:1.15rem; background:var(--ochre);
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 50% 62%, 0 100%);
+  }
+  .orderbar-meta{ flex:1; min-width:0; }
+  .orderbar-meta .t{
+    font-family:var(--font-display); font-weight:600; font-size:1.02rem; line-height:1.15;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .orderbar-meta .p{
+    font-family:var(--font-ui); font-size:.66rem; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:.15rem;
+  }
+  .orderbar .btn{ padding:.9rem 1.15rem; flex:none; }
+  @media (min-width:900px){ .orderbar{ display:none; } }
+
+  /* ————————————————————————————————— reveals & ink drawing ————————————————————— */
+  .reveal{ opacity:0; transform:translateY(16px); }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{ transition:opacity .8s ease, transform .8s ease; }
+  }
+  .sk path, .sk ellipse, .sk circle{
+    stroke-dasharray:1; stroke-dashoffset:1; fill:none;
+  }
+  .in .sk path, .in .sk ellipse, .in .sk circle,
+  .sk.in path, .sk.in ellipse, .sk.in circle{ stroke-dashoffset:0; }
+  @media (prefers-reduced-motion: no-preference){
+    .sk path, .sk ellipse, .sk circle{ transition:stroke-dashoffset 1.3s ease .15s; }
+    .sk :nth-child(2){ transition-delay:.4s; } .sk :nth-child(3){ transition-delay:.6s; }
+    .sk :nth-child(4){ transition-delay:.75s; } .sk :nth-child(5){ transition-delay:.9s; }
+    .sk :nth-child(6){ transition-delay:1.05s; } .sk :nth-child(7){ transition-delay:1.2s; }
+    .sk :nth-child(8){ transition-delay:1.3s; } .sk :nth-child(9){ transition-delay:1.4s; }
+  }
+
+  /* reduced motion: everything settled, nothing moves */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; }
+    .sk path, .sk ellipse, .sk circle,
+    .size-name svg path{ stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ═══════════════════════════ masthead ═══════════════════════════ -->
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Lovi
+      <small>Natural skincare · Kenya</small>
+    </a>
+    <nav aria-label="Primary">
+      <a href="#ingredients">Ingredients</a>
+      <a href="#recipe">The recipe</a>
+      <a href="#story">Story</a>
+      <a href="#journal">Journal</a>
+      <a class="nav-order" href="#recipe">Order ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ═══════════════════════ frontispiece ═══════════════════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <p class="hand hand--ochre hero-note" aria-hidden="true">the family book,<br />now in jars —</p>
+      <div class="hero-grid">
+        <div>
+          <p class="smallcaps">A book of recipes, kept by hand</p>
+          <h1 id="heroTitle">Some recipes are written&nbsp;down. Ours were <em class="annotated">handed down<svg class="sk" viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 13 C 55 7, 110 12, 168 9 S 262 8, 295 10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path pathLength="1" d="M12 18 C 80 13, 170 16, 288 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".65"/></svg></em>.</h1>
+          <p class="lede">Lovi makes natural skincare from shea butter, aloe vera, coconut oil, herbs and essential oils — blended to recipes our family has passed from one generation to the next. Made slowly, in small batches.</p>
+          <div class="hero-cta">
+            <a class="btn btn-wa" id="waHero" href="#" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </a>
+            <a class="link-quiet" href="#recipe">Read the recipe ↓</a>
+          </div>
+          <p class="hero-meta">From KES 350 · Delivered across Kenya</p>
+        </div>
+
+        <figure class="tipped tilt-r reveal">
+          <div class="ph">
+            <img src="../public/images/products/shea-hero.jpg" alt="A jar of Lovi Shea Butter held open in two hands, warm morning light on linen" width="1344" height="768" fetchpriority="high" />
+          </div>
+          <figcaption>the flagship recipe — shea, softened with coconut &amp; aloe</figcaption>
+          <svg class="stamp sk" viewBox="0 0 180 120" aria-hidden="true" focusable="false">
+            <ellipse pathLength="1" cx="90" cy="60" rx="84" ry="52" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <ellipse pathLength="1" cx="90" cy="60" rx="74" ry="43" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="90" y="54" text-anchor="middle" fill="currentColor" font-family="Inter, sans-serif" font-size="21" font-weight="700" letter-spacing="6">LOVI</text>
+            <text x="90" y="74" text-anchor="middle" fill="currentColor" font-family="Inter, sans-serif" font-size="8.5" font-weight="600" letter-spacing="2.6">BY FAMILY RECIPE</text>
+            <text x="90" y="34" text-anchor="middle" fill="currentColor" font-size="10">✳</text>
+            <text x="90" y="94" text-anchor="middle" fill="currentColor" font-size="10">✳</text>
+          </svg>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ chapter I · what goes in ═══════════════════════ -->
+  <section class="specimens" id="ingredients" aria-labelledby="specTitle">
+    <div class="wrap">
+      <div class="chapter" aria-hidden="true"><span>Chapter I <span class="fleuron">❧</span> The shelf</span></div>
+
+      <div class="spec-intro reveal">
+        <p class="smallcaps">What goes in</p>
+        <h2 id="specTitle">Five things, known well.</h2>
+        <p>Every Lovi recipe is built from the same short shelf. Different products take different measures — a little more of this, a steep of that — but the shelf never grows longer than it needs to be.</p>
+      </div>
+
+      <ul class="spec-grid" role="list" style="list-style:none; margin:0; padding:0;">
+        <li class="spec reveal">
+          <span class="spec-no" aria-hidden="true">No. 01</span>
+          <div class="spec-art"><svg class="sk" viewBox="0 0 120 120" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">
+            <path pathLength="1" d="M24 104 C 42 76, 62 52, 96 22"/>
+            <path pathLength="1" d="M56 56 C 66 44, 80 40, 90 44 C 80 54, 66 58, 56 56"/>
+            <path pathLength="1" d="M70 74 C 80 64, 92 62, 100 66 C 92 74, 80 78, 70 74"/>
+            <ellipse pathLength="1" cx="40" cy="82" rx="8.5" ry="11" transform="rotate(-18 40 82)"/>
+            <ellipse pathLength="1" cx="58" cy="92" rx="8" ry="10.5" transform="rotate(12 58 92)"/>
+            <path pathLength="1" d="M36 76 C 38 74, 40 73, 43 73"/>
+          </svg></div>
+          <h3>Shea butter</h3>
+          <p class="latin">Butyrospermum parkii</p>
+          <span class="role">The base</span>
+          <p>Unrefined and nutty, dense with the fats skin recognises. Every recipe in the book starts here.</p>
+        </li>
+
+        <li class="spec reveal">
+          <span class="spec-no" aria-hidden="true">No. 02</span>
+          <div class="spec-art"><svg class="sk" viewBox="0 0 120 120" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">
+            <path pathLength="1" d="M60 106 C 54 78, 46 54, 36 30 C 46 44, 54 72, 60 106"/>
+            <path pathLength="1" d="M60 106 C 66 76, 74 54, 86 32 C 76 48, 66 74, 60 106"/>
+            <path pathLength="1" d="M60 106 C 58 72, 58 44, 60 18 C 62 44, 62 72, 60 106"/>
+            <path pathLength="1" d="M58 104 C 46 88, 34 76, 20 66"/>
+            <path pathLength="1" d="M62 104 C 76 90, 88 80, 102 72"/>
+          </svg></div>
+          <h3>Aloe vera</h3>
+          <p class="latin">Aloe barbadensis</p>
+          <span class="role">The calm</span>
+          <p>The leaf generations reach for first — cooling, settling, kind to skin that has had a long day.</p>
+        </li>
+
+        <li class="spec reveal">
+          <span class="spec-no" aria-hidden="true">No. 03</span>
+          <div class="spec-art"><svg class="sk" viewBox="0 0 120 120" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">
+            <circle pathLength="1" cx="56" cy="66" r="32"/>
+            <circle pathLength="1" cx="56" cy="66" r="18"/>
+            <path pathLength="1" d="M40 62 C 44 54, 54 50, 62 52"/>
+            <path pathLength="1" d="M26 22 C 36 14, 50 12, 60 16 C 50 24, 36 26, 26 22"/>
+            <path pathLength="1" d="M100 52 C 94 62, 94 70, 100 74 C 106 70, 106 62, 100 52"/>
+          </svg></div>
+          <h3>Coconut oil</h3>
+          <p class="latin">Cocos nucifera</p>
+          <span class="role">The softener</span>
+          <p>Melts on contact and carries the blend, so the finish lands light instead of waxy.</p>
+        </li>
+
+        <li class="spec reveal">
+          <span class="spec-no" aria-hidden="true">No. 04</span>
+          <div class="spec-art"><svg class="sk" viewBox="0 0 120 120" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">
+            <path pathLength="1" d="M62 110 C 58 80, 58 46, 62 14"/>
+            <path pathLength="1" d="M61 92 C 50 88, 42 82, 38 74 C 48 76, 56 82, 61 90"/>
+            <path pathLength="1" d="M61 74 C 72 70, 80 64, 84 55 C 74 58, 66 64, 61 72"/>
+            <path pathLength="1" d="M60 56 C 50 52, 43 46, 40 38 C 49 41, 56 46, 60 54"/>
+            <path pathLength="1" d="M61 40 C 70 36, 76 30, 79 22 C 71 25, 65 31, 61 38"/>
+          </svg></div>
+          <h3>Herbs</h3>
+          <p class="latin">grown &amp; gathered</p>
+          <span class="role">The tradition</span>
+          <p>Steeped in, never sprinkled on. The quiet detail that makes one recipe different from the next.</p>
+        </li>
+
+        <li class="spec reveal">
+          <span class="spec-no" aria-hidden="true">No. 05</span>
+          <div class="spec-art"><svg class="sk" viewBox="0 0 120 120" aria-hidden="true" focusable="false" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">
+            <path pathLength="1" d="M44 58 L 72 58 L 72 100 A 8 8 0 0 1 64 108 L 52 108 A 8 8 0 0 1 44 100 Z"/>
+            <path pathLength="1" d="M51 58 L 51 44 L 65 44 L 65 58"/>
+            <path pathLength="1" d="M48 33 L 68 33 L 68 44 L 48 44 Z"/>
+            <path pathLength="1" d="M50 74 C 56 70, 62 70, 66 74"/>
+            <path pathLength="1" d="M92 74 C 86 84, 86 92, 92 96 C 98 92, 98 84, 92 74"/>
+          </svg></div>
+          <h3>Essential oils</h3>
+          <p class="latin">pressed &amp; distilled</p>
+          <span class="role">The signature</span>
+          <p>A few drops, chosen per recipe. How you'd know a Lovi jar with your eyes closed.</p>
+        </li>
+      </ul>
+
+      <p class="spec-foot reveal">Nothing on the shelf hides behind a code name — and the full list for each recipe lives on its jar.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ chapter II · the recipe ═══════════════════════ -->
+  <section class="recipe" id="recipe" aria-labelledby="recipeTitle">
+    <div class="wrap">
+      <div class="chapter" aria-hidden="true"><span>Chapter II <span class="fleuron">❧</span> The recipe</span></div>
+
+      <div class="recipe-card reveal">
+        <figure class="tipped tilt-l">
+          <div class="ph">
+            <img src="../public/images/products/shea-product.jpg" alt="Open jar of whipped Lovi Shea Butter on a terracotta slab, shea nuts and dried leaves beside it" width="928" height="1152" loading="lazy" />
+          </div>
+          <figcaption>no. 01 — fresh out of the whisk</figcaption>
+        </figure>
+
+        <div>
+          <div class="recipe-head">
+            <p class="smallcaps">Recipe No. 01 · The flagship</p>
+            <h2 id="recipeTitle">Lovi Shea Butter.</h2>
+          </div>
+          <p class="recipe-desc">Whipped shea butter, softened with coconut oil and settled with aloe vera. For face, body, hands and hair ends — anywhere skin asks for it.</p>
+
+          <div class="to-use">
+            <p class="smallcaps">To use</p>
+            <ol>
+              <li><b>i.</b> Scoop a little</li>
+              <li><b>ii.</b> Warm between palms</li>
+              <li><b>iii.</b> Press into damp skin</li>
+            </ol>
+            <p class="hand recipe-note" aria-hidden="true">start smaller than you think — it goes far</p>
+          </div>
+
+          <fieldset class="sizes">
+            <legend class="smallcaps">Choose a size</legend>
+            <label class="size-row">
+              <input type="radio" name="size" value="100g" data-price="350" checked />
+              <span class="size-name">100g<svg viewBox="0 0 100 44" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M22 6 C 52 -1, 96 4, 96 20 C 96 36, 62 43, 34 40 C 12 38, 2 30, 6 19 C 9 11, 22 6, 40 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+              <span class="size-fill" aria-hidden="true"></span>
+              <span class="size-price">KES 350</span>
+            </label>
+            <label class="size-row">
+              <input type="radio" name="size" value="250g" data-price="750" />
+              <span class="size-name">250g<svg viewBox="0 0 100 44" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M22 6 C 52 -1, 96 4, 96 20 C 96 36, 62 43, 34 40 C 12 38, 2 30, 6 19 C 9 11, 22 6, 40 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+              <span class="size-fill" aria-hidden="true"></span>
+              <span class="size-price">KES 750</span>
+            </label>
+            <label class="size-row">
+              <input type="radio" name="size" value="500g" data-price="1300" />
+              <span class="size-name">500g<svg viewBox="0 0 100 44" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M22 6 C 52 -1, 96 4, 96 20 C 96 36, 62 43, 34 40 C 12 38, 2 30, 6 19 C 9 11, 22 6, 40 5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+              <span class="size-fill" aria-hidden="true"></span>
+              <span class="size-price">KES 1,300</span>
+            </label>
+          </fieldset>
+
+          <div class="order-cta">
+            <a class="btn btn-wa" id="waOrder" href="#" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp — <span id="ctaPrice">KES 350</span>
+            </a>
+            <p class="order-alt">or <a href="/checkout">checkout online</a> → <span style="letter-spacing:.06em;">M-Pesa &amp; card</span></p>
+            <p class="order-fine">You'll open WhatsApp with your order pre-written. Send it, and we take it from there.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="recipe-foot reveal">The formulary holds more recipes than we've pressed into jars — this is the first.
+        <a class="link-quiet" href="/products">Browse the shop</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ chapter III · the hands ═══════════════════════ -->
+  <section class="story" id="story" aria-labelledby="storyTitle">
+    <div class="wrap">
+      <div class="chapter" aria-hidden="true"><span>Chapter III <span class="fleuron">❧</span> The hands</span></div>
+
+      <div class="story-grid">
+        <figure class="tipped tilt-l reveal">
+          <div class="ph">
+            <img src="../public/images/blog/barrier-texture.jpg" alt="A woman seated in a sunlit room with earthen walls, woven baskets and clay pots on the shelf behind her" width="1376" height="768" loading="lazy" />
+          </div>
+          <figcaption>recipes live in rooms like this one</figcaption>
+        </figure>
+
+        <div class="reveal">
+          <p class="smallcaps">The Loviroots story</p>
+          <h2 id="storyTitle">Before it was a label, it was a habit.</h2>
+          <p class="dropcap">The recipes in this book were never developed. They were remembered — measured in palms and pinches long before grams, corrected by feel, passed along whenever someone left home with dry hands.</p>
+          <p>We named the company Loviroots because that is what these recipes are: roots. Writing them down — and whipping them in small batches — is just our way of letting them travel further than one kitchen, without changing what they are.</p>
+          <div class="story-cta">
+            <a class="link-quiet" href="/about">Read the Loviroots story →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ chapter IV · notes in the margin ═══════════════════════ -->
+  <section class="journal" id="journal" aria-labelledby="journalTitle">
+    <div class="wrap">
+      <div class="chapter" aria-hidden="true"><span>Chapter IV <span class="fleuron">❧</span> The margins</span></div>
+
+      <div class="journal-head reveal">
+        <div>
+          <p class="smallcaps">Skincare reading</p>
+          <h2 id="journalTitle">Notes in the margin.</h2>
+        </div>
+        <a class="link-quiet" href="/blog">All entries →</a>
+      </div>
+
+      <div class="journal-grid">
+        <a class="card reveal" href="/blog/reading-an-ingredients-label">
+          <img src="../public/images/blog/post-pregnancy.jpg" alt="Close-up of a printed ingredients label on a glass skincare jar" width="1376" height="768" loading="lazy" />
+          <div class="card-body">
+            <p class="smallcaps">Ingredients</p>
+            <h3>Reading an ingredients label without a chemistry degree.</h3>
+            <p>What the order of the list actually tells you — and the two lines worth reading twice.</p>
+          </div>
+        </a>
+        <a class="card reveal" href="/blog/dry-season-routine">
+          <img src="../public/images/blog/dark-skin-care.jpg" alt="A woman in a linen robe holding a cup of tea, morning light on her arm" width="1376" height="768" loading="lazy" />
+          <div class="card-body">
+            <p class="smallcaps">Routines</p>
+            <h3>A dry-season routine in three steps.</h3>
+            <p>January air asks more of your skin. Here's the short version of what to change, and when.</p>
+          </div>
+        </a>
+        <a class="card reveal" href="/blog/shea-for-high-porosity-hair">
+          <img src="../public/images/blog/shea-hair.jpg" alt="Portrait of a woman with defined natural curls, catching soft window light" width="1376" height="768" loading="lazy" />
+          <div class="card-body">
+            <p class="smallcaps">Community</p>
+            <h3>Shea for high-porosity hair: what the aunties knew.</h3>
+            <p>Why the oldest trick for sealing moisture into curls still outworks half the shelf.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="journal-foot">
+        <a class="link-quiet" href="/blog">All entries →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ chapter V · the list at the back ═══════════════════════ -->
+  <section class="list" id="list" aria-labelledby="listTitle">
+    <div class="wrap reveal">
+      <div class="chapter" aria-hidden="true"><span>Chapter V <span class="fleuron">❧</span> The list</span></div>
+      <p class="smallcaps">Every family book keeps one</p>
+      <h2 id="listTitle">The list at the back of the book.</h2>
+      <p>Add your name and you'll hear when a new recipe leaves the book for the shelf — first, and before anyone else.</p>
+      <form action="/api/subscribe" method="post">
+        <label class="visually-hidden" for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="your@email.com" />
+        <button class="btn btn-ink" type="submit">Join the Lovi list</button>
+      </form>
+      <p class="fine">New recipes and journal entries. No noise, ever.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════ colophon ═══════════════════════ -->
+<footer aria-label="Site footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="/">Loviroots
+          <small>Natural skincare, by family recipe</small>
+        </a>
+        <p>Loviroots makes natural skincare from shea butter, aloe vera, coconut oil, herbs and essential oils. Delivered across Kenya.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <p class="smallcaps">Shop</p>
+          <ul>
+            <li><a href="/products">All products</a></li>
+            <li><a href="/how-to-use">How to use</a></li>
+            <li><a href="/cart">Cart</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <p class="smallcaps">Read</p>
+          <ul>
+            <li><a href="/blog">Journal</a></li>
+            <li><a href="/about">About Loviroots</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <p class="smallcaps">Say hello</p>
+          <ul>
+            <li><a id="waFooter" href="#" target="_blank" rel="noopener noreferrer">WhatsApp us</a></li>
+            <li><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Loviroots · Kenya</span>
+      <span>Set in Cormorant &amp; Newsreader, like a good book</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════ sticky order bar (mobile) ═══════════════════════ -->
+<div class="orderbar" id="orderbar" role="region" aria-label="Quick order">
+  <div class="orderbar-meta">
+    <p class="t" style="margin:0;">Lovi Shea Butter</p>
+    <p class="p" style="margin:0;"><span id="barSize">100g</span> · <span id="barPrice">KES 350</span></p>
+  </div>
+  <a class="btn btn-wa" id="waBar" href="#" target="_blank" rel="noopener noreferrer">Order&nbsp;on&nbsp;WhatsApp</a>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Production: read from NEXT_PUBLIC_WHATSAPP_NUMBER. Placeholder for prototype. */
+  var WA_NUMBER = '254700000000';
+  var PRODUCT = 'Lovi Shea Butter';
+
+  var fmt = function (n) { return 'KES ' + Number(n).toLocaleString('en-KE'); };
+
+  function waLink(text) {
+    return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
+  }
+
+  /* Hero + footer links: general enquiry / order intent, no size chosen yet */
+  document.getElementById('waHero').href =
+    waLink("Hi Lovi! I'd like to order: " + PRODUCT + ". Please assist.");
+  document.getElementById('waFooter').href =
+    waLink('Hi Lovi! I have a question. Please assist.');
+
+  /* Size ledger → rewrites order links + prices everywhere */
+  var radios = document.querySelectorAll('input[name="size"]');
+  var waOrder = document.getElementById('waOrder');
+  var waBar = document.getElementById('waBar');
+  var ctaPrice = document.getElementById('ctaPrice');
+  var barSize = document.getElementById('barSize');
+  var barPrice = document.getElementById('barPrice');
+
+  function applySize(input) {
+    var size = input.value;
+    var price = input.getAttribute('data-price');
+    var msg = "Hi Lovi! I'd like to order: " + PRODUCT + ' – ' + size +
+              ' (' + fmt(price) + '). Please assist.';
+    waOrder.href = waLink(msg);
+    waBar.href = waLink(msg);
+    ctaPrice.textContent = fmt(price);
+    barSize.textContent = size;
+    barPrice.textContent = fmt(price);
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applySize(r); });
+    if (r.checked) applySize(r);
+  });
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Scroll reveals + self-drawing ink (CSS handles reduced-motion fallback) */
+  var toReveal = document.querySelectorAll('.reveal, .stamp, h1 .annotated svg');
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    toReveal.forEach(function (el) { io.observe(el); });
+  } else {
+    toReveal.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* Sticky order bar (mobile): appears after the hero, rests while the
+     recipe card or the email section is on screen — never competes with
+     an order CTA that is already visible. */
+  var bar = document.getElementById('orderbar');
+  var hero = document.querySelector('.hero');
+  var recipeCard = document.querySelector('.recipe-card');
+  var listSection = document.getElementById('list');
+  var heroVisible = true, recipeVisible = false, listVisible = false;
+
+  function syncBar() {
+    var show = !heroVisible && !recipeVisible && !listVisible;
+    bar.classList.toggle('show', show);
+  }
+  if ('IntersectionObserver' in window) {
+    var watch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.target === hero) heroVisible = e.isIntersecting;
+        if (e.target === recipeCard) recipeVisible = e.isIntersecting;
+        if (e.target === listSection) listVisible = e.isIntersecting;
+      });
+      syncBar();
+    }, { threshold: 0.12 });
+    [hero, recipeCard, listSection].forEach(function (el) { watch.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
