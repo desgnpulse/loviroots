@@ -55,3 +55,1083 @@ h1, h2, h3 {
   --dp-surface-bg: var(--color-ivory);
   --dp-surface-fg: var(--color-earth);
 }
+
+/* ============================================================
+   HOMEPAGE — "Body Temperature" design, ported from
+   docs/loviroots-index-final.html. Bespoke CSS (not Tailwind
+   utility soup) because of the melt/scroll-gauge motion work.
+
+   Everything below is scoped under a class selector — either
+   `.lovi-home` (homepage main content) or `.lv-header` / `.lv-footer`
+   (site-wide chrome, rendered on every route via (public)/layout.tsx)
+   — never a bare element selector. This avoids both (a) leaking
+   homepage-only styling onto /products, /checkout, /cart etc., and
+   (b) the Lightning CSS bug where a bare selector repeated outside
+   vs. inside a @media block gets silently dropped from the build.
+   ============================================================ */
+
+:root {
+  --lv-ivory: var(--color-ivory);
+  --lv-sand: #f1e7d3;
+  --lv-parch: #ebddc2;
+  --lv-amber: #c97b3d;
+  --lv-gold: var(--color-gold);
+  --lv-earth: var(--color-earth);
+  --lv-cacao: #211309;
+  --lv-milk: #f6eedf;
+  --lv-muted: #6e5745;
+  --lv-micro: #7a614e;
+  --lv-muted-d: #cdb69c;
+  --lv-green: #14603a;
+  --lv-green-h: #0e4a2c;
+  --lv-font-disp: var(--font-fraunces), Georgia, serif;
+  --lv-font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --lv-pad: clamp(1.25rem, 4vw, 4rem);
+  --lv-maxw: 82rem;
+}
+
+/* ---------- shared type helpers ---------- */
+.lovi-home .lv-eyebrow {
+  font-family: var(--lv-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+}
+.lovi-home .lv-disp {
+  font-family: var(--lv-font-disp);
+  font-variation-settings: "SOFT" 60, "WONK" 0;
+}
+.lovi-home .lv-shell {
+  max-width: var(--lv-maxw);
+  margin-inline: auto;
+}
+.lovi-home .lv-section {
+  padding: clamp(4.5rem, 9vw, 8rem) var(--lv-pad);
+}
+.lovi-home .lv-sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  flex-wrap: wrap;
+}
+.lovi-home .lv-sec-temp {
+  font-family: var(--lv-font-mono);
+  font-size: 0.72rem;
+  color: var(--lv-amber);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.lovi-home .lv-h2 {
+  font-family: var(--lv-font-disp);
+  font-weight: 560;
+  font-size: clamp(2.1rem, 4.6vw, 3.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 100, "SOFT" 60;
+  text-wrap: balance;
+}
+.lovi-home .lv-h2 em {
+  font-style: normal;
+  font-variation-settings: "opsz" 100, "SOFT" 100, "WONK" 1;
+  color: var(--lv-amber);
+}
+.lovi-home .lv-link-sub {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 0.6rem 0;
+}
+.lovi-home .lv-link-sub:hover {
+  color: var(--lv-earth);
+}
+.lovi-home .lv-btn-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: var(--lv-green);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1.15rem 2.1rem;
+  border-radius: 4px;
+  box-shadow: 0 10px 28px -12px color-mix(in srgb, var(--lv-green) 65%, transparent);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.lovi-home .lv-btn-wa:hover {
+  background: var(--lv-green-h);
+  transform: translateY(-1px);
+}
+
+/* Reveal on scroll */
+.lovi-home .lv-reveal {
+  opacity: 0;
+  transform: translateY(1.6rem);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.lovi-home .lv-reveal.lv-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- hero ---------- */
+.lovi-home .lv-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+  min-height: calc(100svh - 3.5rem);
+}
+.lovi-home .lv-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem var(--lv-pad) 3.5rem;
+}
+.lovi-home .lv-hero-copy .lv-eyebrow {
+  margin-bottom: 1.6rem;
+}
+.lovi-home .lv-hero h1 {
+  font-family: var(--lv-font-disp);
+  font-weight: 560;
+  font-size: clamp(2.6rem, 8.5vw, 7.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  margin-bottom: 1.8rem;
+  text-wrap: balance;
+}
+.lovi-home .lv-hero h1 .lv-num {
+  font-family: var(--lv-font-mono);
+  font-weight: 700;
+  font-size: 0.62em;
+  vertical-align: 0.09em;
+  letter-spacing: -0.04em;
+  color: var(--lv-amber);
+}
+/* "Silk" phase change — no italics: weight drains, terminals soften (SOFT),
+   letterforms go slightly liquid (WONK), tracking loosens, colour warms. */
+.lovi-home .lv-hero h1 .lv-melt {
+  font-variation-settings: "opsz" 144, "wght" 640, "SOFT" 0, "WONK" 0;
+  letter-spacing: -0.03em;
+  transition: font-variation-settings 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    letter-spacing 2.2s cubic-bezier(0.4, 0, 0.2, 1), color 2.2s ease;
+}
+.lovi-home .lv-hero h1.lv-warmed .lv-melt {
+  font-variation-settings: "opsz" 144, "wght" 400, "SOFT" 100, "WONK" 1;
+  letter-spacing: 0.045em;
+  color: var(--lv-amber);
+}
+.lovi-home .lv-hero-copy p.lv-lede {
+  color: var(--lv-muted);
+  max-width: 26rem;
+  font-size: 0.98rem;
+  margin-bottom: 2.3rem;
+}
+.lovi-home .lv-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.4rem;
+}
+.lovi-home .lv-hero-price {
+  font-family: var(--lv-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+  margin-top: 1.7rem;
+}
+.lovi-home .lv-hero-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 22rem;
+}
+.lovi-home .lv-badge {
+  position: absolute;
+  left: 2.2rem;
+  bottom: 2.2rem;
+  width: 9.5rem;
+  height: 9.5rem;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 20px rgba(20, 10, 4, 0.25));
+}
+.lovi-home .lv-badge .lv-spin {
+  animation: lv-spin 26s linear infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes lv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.lovi-home .lv-badge .lv-disc {
+  fill: var(--lv-ivory);
+}
+.lovi-home .lv-badge text {
+  font-family: var(--lv-font-mono);
+  font-size: 8.2px;
+  letter-spacing: 2.6px;
+  fill: var(--lv-earth);
+  text-transform: uppercase;
+}
+.lovi-home .lv-badge .lv-core {
+  fill: var(--lv-amber);
+}
+.lovi-home .lv-badge .lv-core-t {
+  fill: var(--lv-ivory);
+  font-size: 11px;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+/* ---------- temperature rail (decorative, desktop only) ---------- */
+.lovi-home .lv-temp-rail {
+  position: fixed;
+  left: 1.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+.lovi-home .lv-temp-rail .lv-read {
+  font-family: var(--lv-font-mono);
+  font-size: 0.72rem;
+  color: var(--lv-amber);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.08em;
+}
+.lovi-home .lv-temp-rail .lv-track {
+  width: 3px;
+  height: 8.5rem;
+  background: color-mix(in srgb, var(--lv-earth) 15%, transparent);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.lovi-home .lv-temp-rail .lv-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2%;
+  background: linear-gradient(to top, var(--lv-earth), var(--lv-amber), var(--lv-gold));
+  border-radius: 2px;
+}
+.lovi-home .lv-temp-rail .lv-cap {
+  font-family: var(--lv-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+@media (max-width: 64rem) {
+  .lovi-home .lv-temp-rail {
+    display: none;
+  }
+}
+
+/* ---------- ticker ---------- */
+.lovi-home .lv-ticker {
+  border-block: 1px solid color-mix(in srgb, var(--lv-earth) 16%, transparent);
+  background: var(--lv-ivory);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.9rem 0;
+}
+.lovi-home .lv-ticker .lv-lane {
+  display: inline-flex;
+  animation: lv-tick 42s linear infinite;
+}
+.lovi-home .lv-ticker span {
+  font-family: var(--lv-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+  padding: 0 1.6rem;
+}
+.lovi-home .lv-ticker span::after {
+  content: "·";
+  color: var(--lv-amber);
+  margin-left: 3.2rem;
+}
+@keyframes lv-tick {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- states triptych ---------- */
+.lovi-home .lv-states {
+  background: var(--lv-sand);
+}
+.lovi-home .lv-states-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+.lovi-home .lv-state {
+  background: var(--lv-milk);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid color-mix(in srgb, var(--lv-earth) 10%, transparent);
+}
+.lovi-home .lv-state:nth-child(2) {
+  background: #f2e4cb;
+}
+.lovi-home .lv-state:nth-child(3) {
+  background: #edd9b8;
+}
+.lovi-home .lv-state figure {
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  position: relative;
+}
+.lovi-home .lv-state figure img {
+  transition: transform 1.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.lovi-home .lv-state:hover figure img {
+  transform: scale(1.045);
+}
+.lovi-home .lv-state .lv-body {
+  padding: 1.7rem 1.7rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+.lovi-home .lv-state .lv-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--lv-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+}
+.lovi-home .lv-state .lv-meta b {
+  color: var(--lv-amber);
+  font-weight: 700;
+}
+.lovi-home .lv-state h3 {
+  font-family: var(--lv-font-disp);
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-variation-settings: "SOFT" 80;
+  line-height: 1.15;
+}
+.lovi-home .lv-state p {
+  font-size: 0.9rem;
+  color: var(--lv-muted);
+}
+.lovi-home .lv-states-note {
+  margin-top: clamp(2.2rem, 4vw, 3.4rem);
+  text-align: center;
+}
+@media (max-width: 52rem) {
+  .lovi-home .lv-states-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- ingredient manifesto ---------- */
+.lovi-home .lv-ingredient {
+  background: var(--lv-parch);
+}
+.lovi-home .lv-inci {
+  font-family: var(--lv-font-disp);
+  font-weight: 420;
+  font-size: clamp(2.4rem, 6.6vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: 0.015em;
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  margin: 0 0 0.8rem;
+  text-wrap: balance;
+}
+.lovi-home .lv-inci-sub {
+  color: var(--lv-muted);
+  font-size: 1rem;
+  margin-bottom: clamp(2.6rem, 5vw, 4rem);
+}
+.lovi-home .lv-label-card {
+  max-width: 44rem;
+  margin-inline: auto;
+  background: var(--lv-ivory);
+  border: 1.5px solid var(--lv-earth);
+  border-radius: 6px;
+  padding: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-family: var(--lv-font-mono);
+  box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--lv-earth) 45%, transparent);
+  text-align: left;
+}
+.lovi-home .lv-label-card .lv-lhead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid var(--lv-earth);
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.lovi-home .lv-label-card .lv-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--lv-earth) 30%, transparent);
+  font-size: 0.78rem;
+}
+.lovi-home .lv-label-card .lv-row:last-child {
+  border-bottom: none;
+}
+.lovi-home .lv-label-card dt {
+  color: var(--lv-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+.lovi-home .lv-label-card dd {
+  text-align: right;
+  color: var(--lv-cacao);
+}
+.lovi-home .lv-label-card dd b {
+  color: var(--lv-amber);
+}
+.lovi-home .lv-label-card .lv-lfoot {
+  margin-top: 0.6rem;
+  padding-top: 1rem;
+  border-top: 1.5px solid var(--lv-earth);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--lv-micro);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- order — the warmest point on the page ---------- */
+.lovi-home .lv-order {
+  background: var(--lv-cacao);
+  color: var(--lv-milk);
+}
+.lovi-home .lv-order .lv-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+.lovi-home .lv-order-media {
+  position: relative;
+}
+.lovi-home .lv-order-media img {
+  border-radius: 10px;
+}
+.lovi-home .lv-order-media::after {
+  content: "";
+  position: absolute;
+  inset: -0.8rem;
+  border: 1px solid color-mix(in srgb, var(--lv-gold) 40%, transparent);
+  border-radius: 14px;
+  pointer-events: none;
+}
+.lovi-home .lv-order-copy h2 {
+  color: var(--lv-milk);
+  margin: 0.9rem 0 1rem;
+}
+.lovi-home .lv-order-copy .lv-tagline {
+  color: var(--lv-muted-d);
+  font-size: 0.98rem;
+  max-width: 26rem;
+  margin-bottom: 2.2rem;
+}
+.lovi-home .lv-sizes {
+  border: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+.lovi-home .lv-sizes legend {
+  font-family: var(--lv-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lv-gold);
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.lovi-home .lv-size-row {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.lovi-home .lv-size-row input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.lovi-home .lv-size-row label {
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--lv-milk) 30%, transparent);
+  border-radius: 999px;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--lv-muted-d);
+  transition: all 0.2s ease;
+  user-select: none;
+  display: inline-block;
+}
+.lovi-home .lv-size-row label:hover {
+  border-color: var(--lv-gold);
+  color: var(--lv-milk);
+}
+.lovi-home .lv-size-row input:checked + label {
+  background: var(--lv-gold);
+  border-color: var(--lv-gold);
+  color: var(--lv-cacao);
+  font-weight: 600;
+}
+.lovi-home .lv-size-row input:focus-visible + label {
+  outline: 2px solid var(--lv-gold);
+  outline-offset: 3px;
+}
+.lovi-home .lv-price-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  font-family: var(--lv-font-mono);
+}
+.lovi-home .lv-price-line .lv-kes {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--lv-milk);
+  letter-spacing: -0.02em;
+}
+.lovi-home .lv-price-line .lv-per {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lv-muted-d);
+}
+.lovi-home .lv-order-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+.lovi-home .lv-order-ctas .lv-btn-wa {
+  width: 100%;
+  max-width: 26rem;
+  font-size: 0.82rem;
+  padding: 1.25rem 2rem;
+}
+.lovi-home .lv-order-ctas .lv-link-sub {
+  color: var(--lv-muted-d);
+}
+.lovi-home .lv-order-ctas .lv-link-sub:hover {
+  color: var(--lv-milk);
+}
+.lovi-home .lv-order-fine {
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--lv-milk) 14%, transparent);
+  font-size: 0.78rem;
+  color: var(--lv-muted-d);
+  max-width: 26rem;
+}
+.lovi-home .lv-order-fine a {
+  color: var(--lv-gold);
+  text-decoration: none;
+}
+.lovi-home .lv-order-fine a:hover {
+  text-decoration: underline;
+}
+.lovi-home .lv-review-slot {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  font-family: var(--lv-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lv-muted-d);
+}
+.lovi-home .lv-review-slot .lv-stars {
+  color: color-mix(in srgb, var(--lv-gold) 60%, transparent);
+  letter-spacing: 0.2em;
+}
+@media (max-width: 60rem) {
+  .lovi-home .lv-order .lv-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- story — full bleed ---------- */
+.lovi-home .lv-story {
+  padding: 0;
+  position: relative;
+  min-height: min(88svh, 46rem);
+  display: flex;
+  align-items: flex-end;
+}
+.lovi-home .lv-story img.lv-bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+.lovi-home .lv-story .lv-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 10, 4, 0.82) 0%, rgba(20, 10, 4, 0.28) 55%, rgba(20, 10, 4, 0.05) 100%);
+}
+.lovi-home .lv-story .lv-shell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  padding-inline: var(--lv-pad);
+}
+.lovi-home .lv-story blockquote {
+  font-family: var(--lv-font-disp);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 4.4vw, 3.6rem);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  color: var(--lv-ivory);
+  max-width: 34ch;
+  text-wrap: balance;
+  font-variation-settings: "opsz" 100, "SOFT" 80;
+  margin-bottom: 1.8rem;
+}
+.lovi-home .lv-story blockquote em {
+  font-style: normal;
+  color: var(--lv-gold);
+  font-variation-settings: "opsz" 100, "SOFT" 100, "WONK" 1;
+}
+.lovi-home .lv-story .lv-link-sub {
+  color: color-mix(in srgb, var(--lv-ivory) 75%, transparent);
+}
+.lovi-home .lv-story .lv-link-sub:hover {
+  color: var(--lv-ivory);
+}
+
+/* ---------- journal ---------- */
+.lovi-home .lv-journal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+}
+.lovi-home .lv-j-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.lovi-home .lv-j-card figure {
+  aspect-ratio: 16 / 10.5;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+}
+.lovi-home .lv-j-card figure img {
+  transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+  filter: saturate(0.94);
+}
+.lovi-home .lv-j-card:hover figure img {
+  transform: scale(1.05);
+}
+.lovi-home .lv-j-card .lv-cat {
+  font-family: var(--lv-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lv-amber);
+}
+.lovi-home .lv-j-card h3 {
+  font-family: var(--lv-font-disp);
+  font-weight: 560;
+  font-size: 1.42rem;
+  line-height: 1.2;
+  font-variation-settings: "SOFT" 70;
+  transition: color 0.2s ease;
+  color: var(--lv-cacao);
+}
+.lovi-home .lv-j-card:hover h3 {
+  color: var(--lv-amber);
+}
+.lovi-home .lv-j-card p {
+  font-size: 0.88rem;
+  color: var(--lv-muted);
+}
+.lovi-home .lv-j-card .lv-rt {
+  font-family: var(--lv-font-mono);
+  font-size: 0.64rem;
+  color: var(--lv-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+@media (max-width: 52rem) {
+  .lovi-home .lv-journal-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- email capture ---------- */
+.lovi-home .lv-list {
+  background: var(--lv-sand);
+  border-top: 1px solid color-mix(in srgb, var(--lv-earth) 12%, transparent);
+}
+.lovi-home .lv-list .lv-shell {
+  max-width: 44rem;
+  text-align: center;
+}
+.lovi-home .lv-list .lv-sub {
+  color: var(--lv-muted);
+  font-size: 0.95rem;
+  max-width: 32rem;
+  margin: 0 auto 2.4rem;
+}
+.lovi-home .lv-cap-form {
+  display: flex;
+  gap: 0.7rem;
+  max-width: 30rem;
+  margin-inline: auto;
+}
+.lovi-home .lv-cap-form input {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  padding: 1.05rem 1.2rem;
+  border-radius: 4px;
+  border: 1.5px solid color-mix(in srgb, var(--lv-earth) 35%, transparent);
+  background: var(--lv-ivory);
+  color: var(--lv-cacao);
+}
+.lovi-home .lv-cap-form input::placeholder {
+  color: var(--lv-micro);
+}
+.lovi-home .lv-cap-form input:focus-visible {
+  outline: 2px solid var(--lv-amber);
+  outline-offset: 2px;
+  border-color: var(--lv-amber);
+}
+.lovi-home .lv-cap-form button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  background: var(--lv-earth);
+  color: var(--lv-ivory);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 1.05rem 1.8rem;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+.lovi-home .lv-cap-form button:hover {
+  background: var(--lv-cacao);
+}
+.lovi-home .lv-cap-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.lovi-home .lv-cap-ok {
+  font-family: var(--lv-font-mono);
+  font-size: 0.85rem;
+  color: var(--lv-green);
+  padding: 1.2rem;
+  border: 1px dashed var(--lv-green);
+  border-radius: 6px;
+  max-width: 30rem;
+  margin-inline: auto;
+}
+.lovi-home .lv-cap-fine {
+  margin-top: 1.2rem;
+  font-size: 0.72rem;
+  color: var(--lv-micro);
+}
+@media (max-width: 36rem) {
+  .lovi-home .lv-cap-form {
+    flex-direction: column;
+  }
+}
+
+/* ---------- sticky mobile order bar ---------- */
+.lovi-home .lv-mob-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  padding: 0.7rem 0.9rem calc(0.7rem + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--lv-ivory) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid color-mix(in srgb, var(--lv-earth) 15%, transparent);
+  transform: translateY(110%);
+  transition: transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.lovi-home .lv-mob-bar.lv-show {
+  transform: none;
+}
+.lovi-home .lv-mob-bar .lv-btn-wa {
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.76rem;
+  box-shadow: none;
+}
+@media (min-width: 64rem) {
+  .lovi-home .lv-mob-bar {
+    display: none;
+  }
+}
+
+/* ---------- mobile hero/section layout ---------- */
+@media (max-width: 64rem) {
+  .lovi-home .lv-hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .lovi-home .lv-hero-media {
+    order: -1;
+    height: 56vw;
+    min-height: 16rem;
+  }
+  .lovi-home .lv-hero-copy {
+    padding-top: 4.6rem;
+    padding-bottom: 3.2rem;
+  }
+  .lovi-home .lv-cta-row .lv-btn-wa {
+    width: 100%;
+  }
+  .lovi-home .lv-badge {
+    left: auto;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    width: 7rem;
+    height: 7rem;
+  }
+}
+
+/* ---------- site header / footer (global chrome) ---------- */
+.lv-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem var(--lv-pad, clamp(1.25rem, 4vw, 4rem));
+  background: color-mix(in srgb, var(--color-ivory) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-earth) 14%, transparent);
+}
+.lv-header-mark {
+  font-family: var(--lv-font-disp, var(--font-display));
+  font-weight: 600;
+  font-size: 1.55rem;
+  line-height: 1;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 40;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  color: var(--color-ink);
+}
+.lv-header-mark small {
+  font-family: var(--lv-font-mono, ui-monospace);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lv-micro);
+}
+.lv-header-nav {
+  display: flex;
+  gap: 2rem;
+}
+.lv-header-nav a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--lv-muted);
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+.lv-header-nav a:hover {
+  color: var(--color-ink);
+}
+.lv-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.lv-wa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--lv-green);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.05rem;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.lv-wa-pill:hover {
+  background: var(--lv-green-h);
+}
+.lv-wa-pill svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+.lv-cart-badge {
+  font-family: var(--lv-font-mono, ui-monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lv-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.lv-cart-badge:hover {
+  color: var(--color-ink);
+}
+@media (max-width: 52rem) {
+  .lv-header-nav {
+    display: none;
+  }
+  .lv-header-mark small {
+    display: none;
+  }
+}
+
+.lv-footer {
+  background: var(--lv-cacao);
+  color: var(--lv-muted-d);
+  padding: clamp(3.5rem, 7vw, 5.5rem) var(--lv-pad, clamp(1.25rem, 4vw, 4rem)) 2.4rem;
+}
+.lv-footer-shell {
+  max-width: var(--lv-maxw, 82rem);
+  margin-inline: auto;
+}
+.lv-footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+.lv-footer-mark {
+  font-family: var(--lv-font-disp, var(--font-display));
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: var(--lv-ivory);
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.lv-footer-tag {
+  font-size: 0.85rem;
+  max-width: 20rem;
+}
+.lv-footer h4 {
+  font-family: var(--lv-font-mono, ui-monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lv-gold);
+  margin-bottom: 1.1rem;
+  font-weight: 400;
+}
+.lv-footer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0;
+  margin: 0;
+}
+.lv-footer ul a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--lv-muted-d);
+  transition: color 0.2s ease;
+}
+.lv-footer ul a:hover {
+  color: var(--lv-ivory);
+}
+.lv-footer-bottom {
+  border-top: 1px solid color-mix(in srgb, var(--lv-milk) 12%, transparent);
+  padding-top: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+}
+.lv-footer-bottom .lv-legal {
+  font-family: var(--lv-font-mono, ui-monospace);
+  letter-spacing: 0.06em;
+}
+@media (max-width: 56rem) {
+  .lv-footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 36rem) {
+  .lv-footer-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .lovi-home .lv-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .lovi-home .lv-hero h1 .lv-melt {
+    font-variation-settings: "opsz" 144, "wght" 400, "SOFT" 100, "WONK" 1;
+    letter-spacing: 0.045em;
+    color: var(--lv-amber);
+  }
+  .lovi-home .lv-ticker .lv-lane {
+    animation: none !important;
+  }
+  .lovi-home .lv-badge .lv-spin {
+    animation: none !important;
+  }
+}

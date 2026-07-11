@@ -30,54 +30,61 @@ export function EmailCapture() {
   }
 
   return (
-    <section className="bg-forest text-ivory py-24 px-4">
-      <div className="mx-auto max-w-xl">
-        <div className="text-center mb-14">
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-ivory mb-5">
-            Stay Informed.
-          </h2>
-          <p className="text-ivory/40 text-sm leading-relaxed">
-            Occasional dispatches about new batches, ingredient sourcing,
-            <br className="hidden sm:block" />
-            and what we are learning. No spam.
-          </p>
-        </div>
+    <section id="list" className="lv-section lv-list" aria-labelledby="lv-list-title">
+      <div className="lv-shell">
+        <p className="lv-eyebrow">Small batches sell out</p>
+        <h2 className="lv-h2" id="lv-list-title" style={{ margin: "0.9rem 0 1rem" }}>
+          Be first to know.
+        </h2>
+        <p className="lv-sub">
+          New batches, new sizes, and the occasional honest essay on skin. No noise &mdash;
+          we&rsquo;re too small for that.
+        </p>
 
         {status === "success" ? (
-          <p className="text-center text-ivory/60 text-sm tracking-wide">
-            You are in. Check your inbox for a welcome note.
+          <p className="lv-cap-ok" role="status">
+            Karibu &mdash; you&rsquo;re on the list. Watch your inbox.
           </p>
         ) : (
           <>
-            <form
-              onSubmit={handleSubmit}
-              className="flex items-end gap-6 border-b border-ivory/20 pb-3"
-            >
+            <form onSubmit={handleSubmit} className="lv-cap-form" noValidate>
+              <label
+                htmlFor="lv-cap-email"
+                className="lv-eyebrow"
+                style={{
+                  position: "absolute",
+                  width: "1px",
+                  height: "1px",
+                  overflow: "hidden",
+                  clip: "rect(0 0 0 0)",
+                }}
+              >
+                Email address
+              </label>
               <input
                 type="email"
+                id="lv-cap-email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="EMAIL ADDRESS"
+                placeholder="you@example.com"
+                autoComplete="email"
                 disabled={status === "loading"}
-                className="flex-1 bg-transparent text-ivory text-sm placeholder:text-ivory/25 placeholder:text-xs placeholder:tracking-[0.18em] focus:outline-none disabled:opacity-50"
               />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ivory/50 hover:text-ivory transition-colors disabled:opacity-40 whitespace-nowrap"
-              >
-                {status === "loading" ? "···" : "Subscribe"}
+              <button type="submit" disabled={status === "loading"}>
+                {status === "loading" ? "Joining…" : "Join the Lovi list"}
               </button>
             </form>
 
             {status === "error" && (
-              <p className="text-xs text-red-300/60 mt-4 text-center">
+              <p className="lv-cap-fine" style={{ color: "#b3543a" }}>
                 Something went wrong. Please try again.
               </p>
             )}
           </>
         )}
+
+        <p className="lv-cap-fine">One email when it matters. Unsubscribe anytime.</p>
       </div>
     </section>
   );

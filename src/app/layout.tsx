@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cormorant, inter } from "@/lib/fonts";
+import { cormorant, inter, fraunces, spaceMono } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} h-full`}
+      className={`${cormorant.variable} ${inter.variable} ${fraunces.variable} ${spaceMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-ivory text-ink antialiased">
         {children}

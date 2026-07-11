@@ -10,7 +10,7 @@ export function CartBadge() {
     <Link
       href="/cart"
       aria-label={`Cart — ${totalCount} item${totalCount !== 1 ? "s" : ""}`}
-      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-earth/40 hover:text-earth transition-colors"
+      className="lv-cart-badge"
     >
       Cart ({totalCount})
     </Link>

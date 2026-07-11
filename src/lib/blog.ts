@@ -7,6 +7,7 @@ export type BlogPost = {
   readTime: string;
   category: string;
   content?: string; // HTML from WP; absent on static stub posts
+  author?: string;  // author slug, matches key in src/data/authors.json
 };
 
 // Static data — replaced by WPGraphQL queries in Step 4
