@@ -36,9 +36,22 @@ flag() {
 
   local files
   files=$(grep -rIl --include="*.md" --include="*.mdx" --include="*.json" --include="*.tsx" --include="*.ts" --include="*.jsx" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
-  if [ -n "$files" ]; then
+  [ -z "$files" ] && return
+
+  local any=0 report=""
+  while IFS= read -r file; do
+    [ -z "$file" ] && continue
+    local hit
+    hit=$(grep -vE '^#' "$file" | grep -nE "$pattern" 2>/dev/null || true)
+    if [ -n "$hit" ]; then
+      any=1
+      report+="$file:"$'\n'"$(printf '%s\n' "$hit" | sed 's/^/  /')"$'\n'
+    fi
+  done <<< "$files"
+
+  if [ "$any" -eq 1 ]; then
     red "FAIL: $desc"
-    grep -rIn --include="*.md" --include="*.mdx" --include="*.json" --include="*.tsx" --include="*.ts" --include="*.jsx" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
+    printf '%s' "$report"
     ERRORS=$((ERRORS + 1))
   fi
 }
@@ -60,9 +73,22 @@ flag_prose() {
 
   local files
   files=$(grep -rIl --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null || true)
-  if [ -n "$files" ]; then
+  [ -z "$files" ] && return
+
+  local any=0 report=""
+  while IFS= read -r file; do
+    [ -z "$file" ] && continue
+    local hit
+    hit=$(grep -vE '^#' "$file" | grep -nE "$pattern" 2>/dev/null || true)
+    if [ -n "$hit" ]; then
+      any=1
+      report+="$file:"$'\n'"$(printf '%s\n' "$hit" | sed 's/^/  /')"$'\n'
+    fi
+  done <<< "$files"
+
+  if [ "$any" -eq 1 ]; then
     red "FAIL: $desc"
-    grep -rIn --include="*.md" --include="*.json" "${excludes[@]}" -E "$pattern" "$TARGET" 2>/dev/null | sed 's/^/  /' || true
+    printf '%s' "$report"
     ERRORS=$((ERRORS + 1))
   fi
 }
@@ -143,7 +169,7 @@ for path in files:
         if in_code:
             continue
         line = stripped
-        if not line or line.startswith('#') or line.startswith('|'):
+        if not line or line.startswith('#') or line.startswith('|') or line.count('|') >= 2:
             continue
         if line.startswith('- ') or line.startswith('* '):
             line = line[2:]
