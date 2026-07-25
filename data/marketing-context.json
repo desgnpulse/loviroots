@@ -153,6 +153,18 @@
       "cta": "Last line. One CTA from the approved list.",
       "links": "No external links in caption — not clickable on Instagram."
     },
+    "pinterest": {
+      "title_max": 100,
+      "title_rule": "Standalone claim or benefit. Keyword-led. Not a rewrite of the article title.",
+      "description_min": 100,
+      "description_max": 500,
+      "description_rule": "Keyword-rich. Lead with the hook, not hashtags. 2-5 niche hashtags fine mid-description, unlike Instagram.",
+      "image_format": "Portrait 1000x1500px (2:3 ratio). No landscape — it underperforms on Pinterest.",
+      "boards": ["Ingredient Education", "Skin and Hair Routines", "African Beauty", "Real Results"],
+      "board_rule": "Match the article's pillar name exactly.",
+      "link": "Always link back to the article URL on lovi's site.",
+      "cta": "None needed in description — the pin's destination link is the CTA."
+    },
     "whatsapp": {
       "max_sentences": 2,
       "rule": "Must make complete sense with zero context. Written to be forwarded. No jargon.",
