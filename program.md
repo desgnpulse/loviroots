@@ -176,6 +176,32 @@ If score below 7: revise once.
 
 Write to: `data/social/[slug]-instagram.md`
 
+### Pinterest pin
+
+Rules from `data/marketing-context.json` social_specs.pinterest:
+- Title: under 100 chars. Standalone claim or benefit, keyword-led. Not a rewrite of the article title.
+- Description: 100–500 chars. Keyword-rich. Lead with the hook, not hashtags. 2–5 niche hashtags
+  fine mid-description (unlike Instagram, where hashtags only belong at the end).
+- Board: pick the board matching this article's pillar exactly (from social_specs.pinterest.boards).
+- Link: the pin must link back to the article URL.
+- No contractions. No banned words. No em dashes.
+
+Score the pin (0–10). Start at 10:
+- Minus 2 if title exceeds 100 chars or is just the article title restated
+- Minus 2 if description is under 100 or over 500 chars
+- Minus 1 per banned word (cap: minus 2)
+- Minus 1 if board does not match the article's pillar
+- Minus 1 if description leads with hashtags instead of the hook
+
+If score below 7: revise once.
+
+Write to: `data/social/[slug]-pinterest.md`
+
+Pinterest is not auto-published. No Loviroots Pinterest account exists yet (SocialClaw
+starter plan is at its 3-account cap; Pinterest is next once it upgrades and the account
+is created). This file drafts and waits, same as TechTribe's LinkedIn Page cut does until
+that account connects. Do not shell out to SocialClaw for this step.
+
 ### WhatsApp share
 
 Rules:
@@ -191,7 +217,7 @@ Write to: `data/social/[slug]-whatsapp.md`
 ## STEP 11 — Commit social cuts
 
 ```bash
-git add data/social/[slug]-instagram.md data/social/[slug]-whatsapp.md
+git add data/social/[slug]-instagram.md data/social/[slug]-whatsapp.md data/social/[slug]-pinterest.md
 ```
 
 Amend the previous commit:
@@ -230,6 +256,13 @@ then add slug to thesis_threads.[thread].published_slugs in marketing-context.js
 INSTAGRAM CAPTION ([caption-score]/10):
 
 [full caption text]
+
+---
+PINTEREST PIN ([pin-score]/10):
+
+Title: [pin title]
+Board: [board name]
+Description: [full pin description]
 
 ---
 WHATSAPP SHARE:
