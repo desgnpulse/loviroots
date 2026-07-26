@@ -195,7 +195,9 @@
     "cta": "Get the free guide at loviroots.com"
   },
 
-  "published": [],
+  "published": [
+    { "slug": "nairobi-humidity-natural-skincare-routine", "title": "Your Skincare Routine Was Designed for a Different Climate", "date": "2026-07-26", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" }
+  ],
 
   "thesis_threads": [
     {
@@ -215,7 +217,7 @@
       "name": "The Natural Routine",
       "pillar": "Skin and Hair Routines",
       "thesis": "East African skin has specific needs — climate, humidity, hard water, and diet all shape it. Most skincare content is written for Western skin and Western weather. Lovi should own the practical, honest guide for this market.",
-      "published_slugs": [],
+      "published_slugs": ["nairobi-humidity-natural-skincare-routine"],
       "open_angles": [
         "A 3-step natural skincare routine that works in Nairobi humidity",
         "The LOC method for natural hair and where shea butter fits in",
