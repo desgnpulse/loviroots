@@ -196,7 +196,8 @@
   },
 
   "published": [
-    { "slug": "nairobi-humidity-natural-skincare-routine", "title": "Your Skincare Routine Was Designed for a Different Climate", "date": "2026-07-26", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" }
+    { "slug": "nairobi-humidity-natural-skincare-routine", "title": "Your Skincare Routine Was Designed for a Different Climate", "date": "2026-07-26", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" },
+    { "slug": "shea-butter-fatty-acid-profile", "title": "The Fatty Acids in Shea Butter Are Native to Your Skin. That Changes What It Can Do.", "date": "2026-08-02", "thread": "Shea Butter Science", "pillar": "Ingredient Education" }
   ],
 
   "thesis_threads": [
@@ -204,7 +205,7 @@
       "name": "Shea Butter Science",
       "pillar": "Ingredient Education",
       "thesis": "Shea butter is one of the most studied skin barrier ingredients on earth. Most people do not know why it works — they just know it does. Closing that gap builds trust and repeat purchase.",
-      "published_slugs": [],
+      "published_slugs": ["shea-butter-fatty-acid-profile"],
       "open_angles": [
         "What unrefined shea butter does to the skin barrier that refined shea cannot",
         "The fatty acid profile of shea butter — karite acids and what makes them unusual",
