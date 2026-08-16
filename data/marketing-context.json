@@ -198,7 +198,8 @@
   "published": [
     { "slug": "nairobi-humidity-natural-skincare-routine", "title": "Your Skincare Routine Was Designed for a Different Climate", "date": "2026-07-26", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" },
     { "slug": "shea-butter-fatty-acid-profile", "title": "The Fatty Acids in Shea Butter Are Native to Your Skin. That Changes What It Can Do.", "date": "2026-08-02", "thread": "Shea Butter Science", "pillar": "Ingredient Education" },
-    { "slug": "shea-butter-west-africa-what-they-knew", "title": "West African Women Have Used Shea Butter for Over 1,000 Years. The Science Now Explains Why.", "date": "2026-08-09", "thread": "African Ingredients, Global Recognition", "pillar": "African Beauty" }
+    { "slug": "shea-butter-west-africa-what-they-knew", "title": "West African Women Have Used Shea Butter for Over 1,000 Years. The Science Now Explains Why.", "date": "2026-08-09", "thread": "African Ingredients, Global Recognition", "pillar": "African Beauty" },
+    { "slug": "thirty-days-shea-butter-dry-skin", "title": "Your Skin Gets Softer on Day 2. It Gets Different on Day 30.", "date": "2026-08-16", "thread": "Real Skin, Real Results", "pillar": "Real Results" }
   ],
 
   "thesis_threads": [
@@ -245,7 +246,7 @@
       "name": "Real Skin, Real Results",
       "pillar": "Real Results",
       "thesis": "Social proof built around real results outperforms any ingredient claim. The most shareable content Lovi can produce shows transformation — dry to nourished, reactive to calm — in everyday Nairobi skin.",
-      "published_slugs": [],
+      "published_slugs": ["thirty-days-shea-butter-dry-skin"],
       "open_angles": [
         "What 30 days of daily shea butter actually does to dry skin",
         "How shea butter changed one customer's post-pregnancy skincare routine",
