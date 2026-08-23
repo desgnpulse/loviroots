@@ -199,7 +199,8 @@
     { "slug": "nairobi-humidity-natural-skincare-routine", "title": "Your Skincare Routine Was Designed for a Different Climate", "date": "2026-07-26", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" },
     { "slug": "shea-butter-fatty-acid-profile", "title": "The Fatty Acids in Shea Butter Are Native to Your Skin. That Changes What It Can Do.", "date": "2026-08-02", "thread": "Shea Butter Science", "pillar": "Ingredient Education" },
     { "slug": "shea-butter-west-africa-what-they-knew", "title": "West African Women Have Used Shea Butter for Over 1,000 Years. The Science Now Explains Why.", "date": "2026-08-09", "thread": "African Ingredients, Global Recognition", "pillar": "African Beauty" },
-    { "slug": "thirty-days-shea-butter-dry-skin", "title": "Your Skin Gets Softer on Day 2. It Gets Different on Day 30.", "date": "2026-08-16", "thread": "Real Skin, Real Results", "pillar": "Real Results" }
+    { "slug": "thirty-days-shea-butter-dry-skin", "title": "Your Skin Gets Softer on Day 2. It Gets Different on Day 30.", "date": "2026-08-16", "thread": "Real Skin, Real Results", "pillar": "Real Results" },
+    { "slug": "layer-shea-butter-aloe-no-grease", "title": "Shea Butter Feels Greasy Because You Are Applying It at the Wrong Time", "date": "2026-08-23", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" }
   ],
 
   "thesis_threads": [
@@ -220,7 +221,7 @@
       "name": "The Natural Routine",
       "pillar": "Skin and Hair Routines",
       "thesis": "East African skin has specific needs — climate, humidity, hard water, and diet all shape it. Most skincare content is written for Western skin and Western weather. Lovi should own the practical, honest guide for this market.",
-      "published_slugs": ["nairobi-humidity-natural-skincare-routine"],
+      "published_slugs": ["nairobi-humidity-natural-skincare-routine", "layer-shea-butter-aloe-no-grease"],
       "open_angles": [
         "A 3-step natural skincare routine that works in Nairobi humidity",
         "The LOC method for natural hair and where shea butter fits in",
