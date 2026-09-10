@@ -200,7 +200,8 @@
     { "slug": "shea-butter-fatty-acid-profile", "title": "The Fatty Acids in Shea Butter Are Native to Your Skin. That Changes What It Can Do.", "date": "2026-08-02", "thread": "Shea Butter Science", "pillar": "Ingredient Education" },
     { "slug": "shea-butter-west-africa-what-they-knew", "title": "West African Women Have Used Shea Butter for Over 1,000 Years. The Science Now Explains Why.", "date": "2026-08-09", "thread": "African Ingredients, Global Recognition", "pillar": "African Beauty" },
     { "slug": "thirty-days-shea-butter-dry-skin", "title": "Your Skin Gets Softer on Day 2. It Gets Different on Day 30.", "date": "2026-08-16", "thread": "Real Skin, Real Results", "pillar": "Real Results" },
-    { "slug": "layer-shea-butter-aloe-no-grease", "title": "Shea Butter Feels Greasy Because You Are Applying It at the Wrong Time", "date": "2026-08-23", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" }
+    { "slug": "layer-shea-butter-aloe-no-grease", "title": "Shea Butter Feels Greasy Because You Are Applying It at the Wrong Time", "date": "2026-08-23", "thread": "The Natural Routine", "pillar": "Skin and Hair Routines" },
+    { "slug": "shea-butter-vs-cocoa-butter-skin", "title": "Cocoa Butter Seals Your Skin. Shea Butter Feeds It. These Are Not the Same Product.", "date": "2026-09-10", "thread": "Shea Butter Science", "pillar": "Ingredient Education" }
   ],
 
   "thesis_threads": [
@@ -208,7 +209,7 @@
       "name": "Shea Butter Science",
       "pillar": "Ingredient Education",
       "thesis": "Shea butter is one of the most studied skin barrier ingredients on earth. Most people do not know why it works — they just know it does. Closing that gap builds trust and repeat purchase.",
-      "published_slugs": ["shea-butter-fatty-acid-profile"],
+      "published_slugs": ["shea-butter-fatty-acid-profile", "shea-butter-vs-cocoa-butter-skin"],
       "open_angles": [
         "What unrefined shea butter does to the skin barrier that refined shea cannot",
         "The fatty acid profile of shea butter — karite acids and what makes them unusual",
