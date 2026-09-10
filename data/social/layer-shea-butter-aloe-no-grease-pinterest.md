@@ -11,4 +11,4 @@ Description: Shea butter is an occlusive that seals moisture in. Aloe vera is a 
 
 Link: https://loviroots.com/blog/layer-shea-butter-aloe-no-grease
 
-Image: Portrait 1000x1500px — /images/blog/layer-shea-butter-aloe-no-grease.jpg
+Image: Portrait 1000x1500px, /images/blog/layer-shea-butter-aloe-no-grease.jpg
