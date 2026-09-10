@@ -118,6 +118,35 @@ If score is 8 or above:
 
 ---
 
+## STEP 6.5 — Generate the cover image
+
+If score is 8 or above (added 2026-09-11 — previously this was a manual "source it yourself"
+step noted in the Gmail draft; the same Gemini-based generator TechTribe Africa uses now
+covers Lovi too, with its own brand identity, not TechTribe's).
+
+1. Read the article **opener** and **closing line** you just wrote.
+2. Derive one scene: a natural, warm lifestyle moment that holds both - wood/linen/clay
+   backdrop, soft natural light, matches Lovi's brand doc (`docs/lovy_brand_working_doc.md`
+   sections 1-2), not TechTribe's dark editorial look. Write it as one plain paragraph -
+   the generator wraps it with the full Lovi identity profile automatically.
+3. Generate directly:
+
+```bash
+~/.claude/skills/.venv/bin/python3 ~/.claude/skills/techtribe-write/scripts/generate-hero.py \
+  --brand lovi \
+  --slug [slug] \
+  --prompt "[scene paragraph from step 2]"
+```
+
+Defaults to the Flash model (~$0.02-0.04/image), 16:9 (matches `BlogCard.tsx`'s `aspect-video`
+container), saves straight to `public/images/blog/[slug].jpg` - no manual placement needed.
+
+4. If the script fails (missing key, billing, quota, or a scene needing human art direction
+   it cannot execute), fall back to the old manual note in STEP 12's Gmail draft instead of
+   blocking the pipeline run.
+
+---
+
 ## STEP 7 — Update marketing-context.json
 
 After a successful commit:
@@ -247,7 +276,7 @@ File: src/content/blog/[slug].mdx
 
 Article strengths: [2–3 specific things that work]
 Concerns: [list any, or: None]
-Cover image needed: /images/blog/[slug].jpg — add before publishing
+Cover image: [/images/blog/[slug].jpg — generated in STEP 6.5 / STILL NEEDED — generator failed, add before publishing]
 
 To publish: change "status: draft" to "status: published" in frontmatter,
 then add slug to thesis_threads.[thread].published_slugs in marketing-context.json.
